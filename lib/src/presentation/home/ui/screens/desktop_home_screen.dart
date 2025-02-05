@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:flutter_version_manager/src/core/core.dart';
 import 'package:flutter_version_manager/src/presentation/home/ui/widgets/main_home_body.dart';
@@ -122,9 +121,9 @@ class _DesktopHomeScreenState extends State<DesktopHomeScreen> {
             height: 0,
           ),
           // Control Section
-          Expanded(
+          const Expanded(
               child: Padding(
-            padding: const EdgeInsets.only(left: 16, right: 16),
+            padding: EdgeInsets.only(left: 16, right: 16),
             child: MainHomeBody(),
           )),
         ],
