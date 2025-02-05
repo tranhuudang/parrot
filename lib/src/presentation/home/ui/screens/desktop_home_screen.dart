@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter_version_manager/src/core/core.dart';
+import 'package:flutter_version_manager/src/presentation/home/ui/widgets/main_home_body.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -12,6 +15,8 @@ class DesktopHomeScreen extends StatefulWidget {
 }
 
 class _DesktopHomeScreenState extends State<DesktopHomeScreen> {
+
+
   @override
   void initState() {
     super.initState();
@@ -40,10 +45,11 @@ class _DesktopHomeScreenState extends State<DesktopHomeScreen> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
+      body: Column(
         children: [
           Row(children: [
             Expanded(
@@ -137,11 +143,15 @@ class _DesktopHomeScreenState extends State<DesktopHomeScreen> {
               ),
             ],
           ),
+          // Control Section
+          Expanded(child: MainHomeBody()),
         ],
       ),
     );
   }
 }
+
+
 
 class DashboardShape extends StatelessWidget {
   final Color backgroundColor;
