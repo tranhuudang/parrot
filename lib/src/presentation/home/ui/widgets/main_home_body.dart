@@ -3,9 +3,11 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_version_manager/src/core/core.dart';
 import 'package:flutter_version_manager/src/presentation/home/data/model/downloaded_flutter_sdks.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../data/model/flutter_versions.dart';
 
@@ -18,6 +20,7 @@ class MainHomeBody extends StatefulWidget {
 
 class _MainHomeBodyState extends State<MainHomeBody> {
   String _selectedVersion = '';
+  String _selectedOnlineVersion = '';
   List<String> _downloadedFlutterVersions = [];
   String _commandOutput = "Command output will appear here...";
   List<String> _availableVersions = [];
@@ -28,16 +31,19 @@ class _MainHomeBodyState extends State<MainHomeBody> {
     super.initState();
     _checkFvmInstallation();
     _fetchOnlineFlutterVersions();
-    //_fetchDownloadedFlutterVersions();
+    _fetchDownloadedFlutterVersions();
   }
 
   Future<void> _checkFvmInstallation() async {
     try {
-      ProcessResult result = await Process.run('fvm', ['--version'],);
+      ProcessResult result = await Process.run(
+        'fvm',
+        ['--version'],
+      );
       setState(() {
         _fvmVersion = result.stdout.toString().trim();
-
       });
+      DebugLog.info(_fvmVersion);
     } catch (e) {
       DebugLog.error(e.toString());
     }
@@ -69,14 +75,15 @@ class _MainHomeBodyState extends State<MainHomeBody> {
         setState(() {
           _availableVersions = versions;
 
-          //_selectedVersion = versions.isNotEmpty ? versions.first : '';
+          _selectedOnlineVersion = versions.isNotEmpty ? versions.first : '';
         });
 
         print('here');
         print(_availableVersions);
       } else {
         setState(() {
-          _commandOutput += "Error fetching Flutter versions --: ${result.stderr}" + "\n";
+          _commandOutput +=
+              "Error fetching Flutter versions --: ${result.stderr}" + "\n";
         });
       }
     } catch (e) {
@@ -88,17 +95,16 @@ class _MainHomeBodyState extends State<MainHomeBody> {
   }
 
   /// Install selected Flutter version via FVM
-  Future<void> _installFlutterVersion(String projectPath) async {
-    if (_selectedVersion.isEmpty) return;
+  Future<void> _downloadFlutterVersion() async {
+    if (_selectedOnlineVersion.isEmpty) return;
 
     setState(() {
-      _commandOutput = "Installing Flutter $_selectedVersion...";
+      _commandOutput += "Installing Flutter $_selectedOnlineVersion..." + '\n';
     });
 
     try {
-      Process process = await Process.start(
-          'fvm', ['install', _selectedVersion],
-          workingDirectory: projectPath);
+      Process process =
+          await Process.start('fvm', ['install', _selectedOnlineVersion]);
 
       process.stdout.transform(utf8.decoder).listen((data) {
         setState(() {
@@ -108,24 +114,25 @@ class _MainHomeBodyState extends State<MainHomeBody> {
 
       process.stderr.transform(utf8.decoder).listen((data) {
         setState(() {
-          _commandOutput = "Error: $data";
+          _commandOutput += "Error: $data" + '\n';
         });
       });
 
       await process.exitCode;
       setState(() {
-        _commandOutput = "Flutter $_selectedVersion installed successfully!";
+        _commandOutput +=
+            "Flutter $_selectedOnlineVersion installed successfully!" + '\n';
       });
     } catch (e) {
       setState(() {
-        _commandOutput = "Error: $e";
+        _commandOutput += "Error: $e" + '\n';
       });
     }
   }
 
-  Future<void> _fetchDownloadedFlutterVersions(String projectPath) async {
+  Future<void> _fetchDownloadedFlutterVersions() async {
     try {
-      ProcessResult result = await Process.run('fvm', ['api', 'list'], workingDirectory: projectPath);
+      ProcessResult result = await Process.run('fvm', ['api', 'list']);
       // The result contain some weird data, this bellow code was meant to only get those necessary
       String jsonString = result.stdout.toString();
       jsonString = jsonString.substring(
@@ -159,18 +166,20 @@ class _MainHomeBodyState extends State<MainHomeBody> {
     });
 
     try {
-      Process process = await Process.start('fvm', ['use', _selectedVersion],
+      Process process = await Process.start(
+          'cmd', ['/c', 'echo y | fvm use $_selectedVersion'],
           workingDirectory: projectPath);
 
       process.stdout.transform(utf8.decoder).listen((data) {
         setState(() {
-          _commandOutput = data;
+          String cleanedData = data.replaceAll(RegExp(r'[^\x20-\x7E]'), '');
+          _commandOutput += cleanedData + '\n';
         });
       });
 
       process.stderr.transform(utf8.decoder).listen((data) {
         setState(() {
-          _commandOutput = "Error: $data";
+          _commandOutput += "Error: $data" + '\n';
         });
       });
 
@@ -222,104 +231,133 @@ class _MainHomeBodyState extends State<MainHomeBody> {
     return Column(
       children: [
         /// Install FVM
-        _fvmVersion.isEmpty
-            ? FilledButton(
-            onPressed: () => installFvm(_projectPathController.text),
-            child: Text('Install FVM CLI'))
-            : FilledButton(
-            onPressed: () {}, child: Text('FVM Version: $_fvmVersion')),
-
-        /// Select project
         Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-              child: TextFormField(
-                controller: _projectPathController,
-                readOnly: true,
-                decoration: InputDecoration(
-                  labelText: 'Selected Path',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-            ),
-            SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: (){
-                _selectPath();
+            Text('FVM version:'),
+            8.width,
+            _fvmVersion.isEmpty
+                ? FilledButton(
+                    onPressed: () => installFvm(_projectPathController.text),
+                    child: Text('Install FVM CLI'))
+                : Text(_fvmVersion),
+            8.width,
+            IconButton(
+                onPressed: () {
+                  _checkFvmInstallation();
                 },
-              child: Text('Select Path'),
-            ),
+                icon: Icon(FluentIcons.arrow_sync_16_regular)),
+            Spacer(),
+            8.width,
+            TextButton(onPressed: () {}, child: Text("What's new?")),
           ],
         ),
-
 
         /// Download online SDKs
         Row(
           children: [
-            Expanded(
-              child: DropdownButton<String>(
-                value: _selectedVersion.isNotEmpty ? _selectedVersion : null,
-                hint: const Text("Select Flutter Version"),
-                items: _availableVersions
-                    .map((version) => DropdownMenuItem(
-                          value: version,
-                          child: Text(version),
-                        ))
-                    .toList(),
-                onChanged: (value) {
-                  setState(() {
-                    _selectedVersion = value!;
-                  });
-                },
-              ),
+            Text('Available Flutter SDK releases: '),
+            8.width,
+            DropdownButton<String>(
+              value: _selectedOnlineVersion.isNotEmpty
+                  ? _selectedOnlineVersion
+                  : null,
+              hint: const Text("Select Flutter Version"),
+              items: _availableVersions
+                  .map((version) => DropdownMenuItem(
+                        value: version,
+                        child: Text(version),
+                      ))
+                  .toList(),
+              onChanged: (value) {
+                setState(() {
+                  _selectedOnlineVersion = value!;
+                });
+              },
             ),
+            8.width,
+            IconButton(
+                onPressed: () {
+                  _fetchOnlineFlutterVersions();
+                },
+                icon: Icon(FluentIcons.arrow_sync_16_regular)),
+            Spacer(),
+            8.width,
             ElevatedButton(
-              onPressed: () =>
-                  _installFlutterVersion(_projectPathController.text),
+              onPressed: () => _downloadFlutterVersion(),
               child: const Text("Download"),
             ),
           ],
         ),
 
-        /// Switch using available local version
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              const Text("Select Flutter Version:"),
-              8.width,
-              Expanded(
-                child: DropdownButton<String>(
-                  value: _selectedVersion.isNotEmpty ? _selectedVersion : null,
-                  hint: const Text("Select Flutter Version"),
-                  items: _downloadedFlutterVersions
-                      .map((version) => DropdownMenuItem(
-                            value: version,
-                            child: Text(version),
-                          ))
-                      .toList(),
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedVersion = value!;
-                    });
-                  },
+        /// Select project path
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text('Target Flutter Project:'),
+            8.width,
+            Expanded(
+              child: TextFormField(
+                enabled: false,
+                controller: _projectPathController,
+                readOnly: true,
+                decoration: InputDecoration(
+                  labelText: 'Selected Flutter Project Path',
+                  border: InputBorder.none,
                 ),
               ),
-              ElevatedButton(
-                onPressed: () =>
-                    _switchFlutterVersion(_projectPathController.text),
-                child: const Text("Switch"),
-              ),
-            ],
-          ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                _selectPath();
+              },
+              child: Text('Select Project Path'),
+            ),
+          ],
+        ),
+
+        /// Switch using available local version
+        Row(
+          children: [
+            const Text("Select new Flutter version to switch:"),
+            8.width,
+            DropdownButton<String>(
+              value: _selectedVersion.isNotEmpty ? _selectedVersion : null,
+              hint: const Text("Select Flutter Version"),
+              items: _downloadedFlutterVersions
+                  .map((version) => DropdownMenuItem(
+                        value: version,
+                        child: Text(version),
+                      ))
+                  .toList(),
+              onChanged: (value) {
+                setState(() {
+                  _selectedVersion = value!;
+                });
+              },
+            ),
+            8.width,
+            IconButton(
+                onPressed: () {
+                  _fetchDownloadedFlutterVersions();
+                },
+                icon: Icon(FluentIcons.arrow_sync_16_regular)),
+            Spacer(),
+            8.width,
+            ElevatedButton(
+              onPressed: () =>
+                  _switchFlutterVersion(_projectPathController.text),
+              child: const Text("Switch"),
+            ),
+          ],
         ),
         Expanded(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(_commandOutput),
-            ),
+          child: Container(
+            width: double.infinity,
+            height: double.infinity,
+            padding: const EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+                color: context.theme.colorScheme.surfaceContainerLow),
+            child: SingleChildScrollView(child: Text(_commandOutput, style: GoogleFonts.inconsolata(),)),
           ),
         ),
       ],

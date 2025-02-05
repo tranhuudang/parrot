@@ -15,8 +15,6 @@ class DesktopHomeScreen extends StatefulWidget {
 }
 
 class _DesktopHomeScreenState extends State<DesktopHomeScreen> {
-
-
   @override
   void initState() {
     super.initState();
@@ -44,7 +42,6 @@ class _DesktopHomeScreenState extends State<DesktopHomeScreen> {
       });
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -124,34 +121,17 @@ class _DesktopHomeScreenState extends State<DesktopHomeScreen> {
           const Divider(
             height: 0,
           ),
-          Row(
-            children: [
-              Expanded(
-                child: DashboardShape(
-                  backgroundColor:
-                      context.theme.colorScheme.surfaceContainerHigh,
-                  textColor: context.theme.colorScheme.onSurface,
-                ),
-              ),
-              DashboardShape(
-                backgroundColor: context.theme.colorScheme.primary,
-                textColor: context.theme.colorScheme.onPrimary,
-              ),
-              DashboardShape(
-                backgroundColor: context.theme.colorScheme.onSurface,
-                textColor: context.theme.colorScheme.onPrimary,
-              ),
-            ],
-          ),
           // Control Section
-          Expanded(child: MainHomeBody()),
+          Expanded(
+              child: Padding(
+            padding: const EdgeInsets.only(left: 16, right: 16),
+            child: MainHomeBody(),
+          )),
         ],
       ),
     );
   }
 }
-
-
 
 class DashboardShape extends StatelessWidget {
   final Color backgroundColor;
