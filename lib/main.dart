@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_version_manager/bloc_provider_scope.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:flutter_version_manager/src/core/core.dart';
@@ -11,7 +12,7 @@ void main() async {
   await _Initializer.start();
   runApp(
     const BlocProviderScope(
-      child: App(),
+      child: ProviderScope(child: App()),
     ),
   );
 }
