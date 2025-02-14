@@ -26,7 +26,10 @@ class MainHomeBody extends ConsumerWidget {
             state.fvmVersion.isEmpty
                 ? FilledButton(
                     onPressed: () {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const InstallFVMScreen()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const InstallFVMScreen()));
                     },
                     child: const Text('Install FVM CLI'),
                   )
@@ -56,10 +59,10 @@ class MainHomeBody extends ConsumerWidget {
         ],
         Expanded(
             child: IgnorePointer(
-              ignoring: state.fvmVersion.isEmpty ? true: false,
-              child: Opacity(
-                        opacity: state.fvmVersion.isEmpty ? .5 : 1,
-                        child: Column(
+          ignoring: state.fvmVersion.isEmpty ? true : false,
+          child: Opacity(
+            opacity: state.fvmVersion.isEmpty ? .5 : 1,
+            child: Column(
               children: [
                 Row(
                   children: [
@@ -95,9 +98,9 @@ class MainHomeBody extends ConsumerWidget {
                           : () => notifier.downloadFlutterVersion(),
                       child: state.isDownloading
                           ? const SizedBox(
-                          height: 20,
-                          width: 20,
-                          child: CircularProgressIndicator())
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator())
                           : const Text("Download"),
                     ),
                   ],
@@ -124,47 +127,52 @@ class MainHomeBody extends ConsumerWidget {
                     ),
                   ],
                 ),
-                Row(
-                  children: [
-                    const Text("Select new Flutter version to switch:"),
-                    8.width,
-                    DropdownButton<String>(
-                      value: state.selectedVersion.isNotEmpty
-                          ? state.selectedVersion
-                          : null,
-                      hint: const Text("Select Flutter Version"),
-                      items: state.downloadedFlutterVersions
-                          .map((version) => DropdownMenuItem(
-                                value: version,
-                                child: Text(version),
-                              ))
-                          .toList(),
-                      onChanged: (value) {
-                        if (value != null) {
-                          notifier.selectDownloadedVersion(value);
-                        }
-                      },
-                    ),
-                    8.width,
-                    IconButton(
-                      onPressed: () => notifier.fetchDownloadedFlutterVersions(),
-                      icon: const Icon(FluentIcons.arrow_sync_16_regular),
-                    ),
-                    const Spacer(),
-                    8.width,
-                    ElevatedButton(
-                      onPressed: state.isSwitching
-                          ? null
-                          : () => notifier.switchFlutterVersion(
-                              notifier.projectPathController.text),
-                      child: state.isSwitching
-                          ? const SizedBox(
-                          height: 20, width: 20,
-                          child: CircularProgressIndicator())
-                          : const Text("Switch"),
-                    ),
-                  ],
-                ),
+                if (notifier.projectPathController.text.isNotEmpty) ...[
+                  Row(
+                    children: [
+                      const Text("Select new Flutter version to switch:"),
+                      8.width,
+                      DropdownButton<String>(
+                        value: state.selectedVersion.isNotEmpty
+                            ? state.selectedVersion
+                            : null,
+                        hint: const Text("Select Flutter Version"),
+                        items: state.downloadedFlutterVersions
+                            .map((version) => DropdownMenuItem(
+                                  value: version,
+                                  child: Text(version),
+                                ))
+                            .toList(),
+                        onChanged: (value) {
+                          if (value != null) {
+                            notifier.selectDownloadedVersion(value);
+                          }
+                        },
+                      ),
+                      8.width,
+                      IconButton(
+                        onPressed: () =>
+                            notifier.fetchDownloadedFlutterVersions(),
+                        icon: const Icon(FluentIcons.arrow_sync_16_regular),
+                      ),
+                      const Spacer(),
+                      8.width,
+                      ElevatedButton(
+                        onPressed: state.isSwitching
+                            ? null
+                            : () => notifier.switchFlutterVersion(
+                                notifier.projectPathController.text),
+                        child: state.isSwitching
+                            ? const SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator())
+                            : const Text("Switch"),
+                      ),
+                    ],
+                  ),
+                  8.height,
+                ],
                 Expanded(
                   child: Container(
                     width: double.infinity,
@@ -173,14 +181,13 @@ class MainHomeBody extends ConsumerWidget {
                     decoration: BoxDecoration(
                         color: context.theme.colorScheme.surfaceContainer),
                     child: ListView(
-                      reverse: true,
-                        children: state.commandOutput.toList()),
+                        reverse: true, children: state.commandOutput.toList()),
                   ),
                 ),
               ],
-                        ),
-                      ),
-            )),
+            ),
+          ),
+        )),
       ],
     );
   }
