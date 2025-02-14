@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_version_manager/src/core/core.dart';
 import 'package:flutter_version_manager/src/core/utils/launchUrl.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class PaypalDonationWidget extends StatefulWidget {
   const PaypalDonationWidget({super.key});

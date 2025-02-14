@@ -26,7 +26,7 @@ class MainHomeBody extends ConsumerWidget {
             state.fvmVersion.isEmpty
                 ? FilledButton(
                     onPressed: () {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => InstallFVMScreen()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const InstallFVMScreen()));
                     },
                     child: const Text('Install FVM CLI'),
                   )
@@ -94,10 +94,10 @@ class MainHomeBody extends ConsumerWidget {
                           ? null
                           : () => notifier.downloadFlutterVersion(),
                       child: state.isDownloading
-                          ? SizedBox(
+                          ? const SizedBox(
                           height: 20,
                           width: 20,
-                          child: const CircularProgressIndicator())
+                          child: CircularProgressIndicator())
                           : const Text("Download"),
                     ),
                   ],
@@ -158,9 +158,9 @@ class MainHomeBody extends ConsumerWidget {
                           : () => notifier.switchFlutterVersion(
                               notifier.projectPathController.text),
                       child: state.isSwitching
-                          ? SizedBox(
+                          ? const SizedBox(
                           height: 20, width: 20,
-                          child: const CircularProgressIndicator())
+                          child: CircularProgressIndicator())
                           : const Text("Switch"),
                     ),
                   ],

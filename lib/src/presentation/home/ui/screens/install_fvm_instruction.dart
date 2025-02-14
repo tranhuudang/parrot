@@ -1,16 +1,16 @@
 import 'package:cached_network_svg_image/cached_network_svg_image.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_version_manager/src/core/core.dart';
 import 'package:flutter_version_manager/src/core/utils/launchUrl.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:dotted_border/dotted_border.dart';
 
 import '../../../donation/donation_screen.dart';
 import '../../../presentation.dart';
 
 class InstallFVMScreen extends StatelessWidget {
+  const InstallFVMScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,24 +26,24 @@ class InstallFVMScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'Follow these steps to install FVM on your Windows machine:',
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               _buildStep(
                 context,
                 'Step 1: Install Chocolatey (if you don\'t have it)',
                 'Run the following command in your PowerShell (as Administrator):',
                 '''Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))''',
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               _buildStep(
                 context,
                 'Step 2: Install FVM using Chocolatey',
                 'Run this command to install FVM:',
                 'choco install fvm',
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               DottedBorder(
                 dashPattern: const [4, 4],
                 borderType: BorderType.RRect,
@@ -106,17 +106,17 @@ class InstallFVMScreen extends StatelessWidget {
       children: [
         Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 18,
           ),
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         Text(description),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         Container(
             width: double.infinity,
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               color: context.theme.colorScheme.surfaceContainer,
@@ -133,10 +133,10 @@ class InstallFVMScreen extends StatelessWidget {
       onPressed: () {
         Clipboard.setData(ClipboardData(text: command));
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Command copied to clipboard')),
+          const SnackBar(content: Text('Command copied to clipboard')),
         );
       },
-      child: Text('Copy Command'),
+      child: const Text('Copy Command'),
     );
   }
 }
