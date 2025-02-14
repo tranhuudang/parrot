@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'main_home_state.freezed.dart';
@@ -10,7 +11,7 @@ class MainHomeState with _$MainHomeState {
     required String selectedOnlineVersion,
     required List<String> downloadedFlutterVersions,
     required String selectedVersion,
-    required String commandOutput,
+    required List<Widget> commandOutput,
     required bool isCheckingFvm,
     required bool isInstallingFvm,
     required bool isFetchingVersions,
@@ -25,7 +26,7 @@ class MainHomeState with _$MainHomeState {
     selectedOnlineVersion: '',
     downloadedFlutterVersions: [],
     selectedVersion: '',
-    commandOutput: '',
+    commandOutput: [],
     isCheckingFvm: false,
     isInstallingFvm: false,
     isFetchingVersions: false,

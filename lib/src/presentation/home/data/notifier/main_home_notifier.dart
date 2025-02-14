@@ -80,7 +80,9 @@ class MainHomeNotifier extends StateNotifier<MainHomeState> {
       Process process =
           await Process.start('fvm', ['install', state.selectedOnlineVersion]);
       process.stdout.transform(utf8.decoder).listen((data) {
-        state = state.copyWith(commandOutput: data);
+        List<Widget> newList = List.from(state.commandOutput);  // Make a copy of the list
+        newList.insert(0, Text(data));  // Modify the list
+        state = state.copyWith(commandOutput: newList);  // Update state with the new list
       });
       process.exitCode.then((exitCode) {
         if (exitCode == 0) {
@@ -132,7 +134,9 @@ class MainHomeNotifier extends StateNotifier<MainHomeState> {
           'cmd', ['/c', 'echo y | fvm use ${state.selectedVersion}'],
           workingDirectory: projectPath);
       process.stdout.transform(utf8.decoder).listen((data) {
-        state = state.copyWith(commandOutput: data);
+        List<Widget> newList = List.from(state.commandOutput);  // Make a copy of the list
+        newList.insert(0, Text(data));  // Modify the list
+        state = state.copyWith(commandOutput: newList);  // Update state with the new list
       });
       process.exitCode.then((exitCode) {
         state =

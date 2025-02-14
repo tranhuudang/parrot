@@ -172,9 +172,9 @@ class MainHomeBody extends ConsumerWidget {
                     padding: const EdgeInsets.all(8.0),
                     decoration: BoxDecoration(
                         color: context.theme.colorScheme.surfaceContainer),
-                    child: SingleChildScrollView(
-                        child: Text(state.commandOutput,
-                            style: GoogleFonts.inconsolata())),
+                    child: ListView(
+                      reverse: true,
+                        children: state.commandOutput.toList()),
                   ),
                 ),
               ],

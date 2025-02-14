@@ -22,7 +22,7 @@ mixin _$MainHomeState {
   List<String> get downloadedFlutterVersions =>
       throw _privateConstructorUsedError;
   String get selectedVersion => throw _privateConstructorUsedError;
-  String get commandOutput => throw _privateConstructorUsedError;
+  List<Widget> get commandOutput => throw _privateConstructorUsedError;
   bool get isCheckingFvm => throw _privateConstructorUsedError;
   bool get isInstallingFvm => throw _privateConstructorUsedError;
   bool get isFetchingVersions => throw _privateConstructorUsedError;
@@ -49,7 +49,7 @@ abstract class $MainHomeStateCopyWith<$Res> {
       String selectedOnlineVersion,
       List<String> downloadedFlutterVersions,
       String selectedVersion,
-      String commandOutput,
+      List<Widget> commandOutput,
       bool isCheckingFvm,
       bool isInstallingFvm,
       bool isFetchingVersions,
@@ -110,7 +110,7 @@ class _$MainHomeStateCopyWithImpl<$Res, $Val extends MainHomeState>
       commandOutput: null == commandOutput
           ? _value.commandOutput
           : commandOutput // ignore: cast_nullable_to_non_nullable
-              as String,
+              as List<Widget>,
       isCheckingFvm: null == isCheckingFvm
           ? _value.isCheckingFvm
           : isCheckingFvm // ignore: cast_nullable_to_non_nullable
@@ -153,7 +153,7 @@ abstract class _$$MainHomeStateImplCopyWith<$Res>
       String selectedOnlineVersion,
       List<String> downloadedFlutterVersions,
       String selectedVersion,
-      String commandOutput,
+      List<Widget> commandOutput,
       bool isCheckingFvm,
       bool isInstallingFvm,
       bool isFetchingVersions,
@@ -210,9 +210,9 @@ class __$$MainHomeStateImplCopyWithImpl<$Res>
           : selectedVersion // ignore: cast_nullable_to_non_nullable
               as String,
       commandOutput: null == commandOutput
-          ? _value.commandOutput
+          ? _value._commandOutput
           : commandOutput // ignore: cast_nullable_to_non_nullable
-              as String,
+              as List<Widget>,
       isCheckingFvm: null == isCheckingFvm
           ? _value.isCheckingFvm
           : isCheckingFvm // ignore: cast_nullable_to_non_nullable
@@ -250,7 +250,7 @@ class _$MainHomeStateImpl implements _MainHomeState {
       required this.selectedOnlineVersion,
       required final List<String> downloadedFlutterVersions,
       required this.selectedVersion,
-      required this.commandOutput,
+      required final List<Widget> commandOutput,
       required this.isCheckingFvm,
       required this.isInstallingFvm,
       required this.isFetchingVersions,
@@ -258,7 +258,8 @@ class _$MainHomeStateImpl implements _MainHomeState {
       required this.isFetchingDownloaded,
       required this.isSwitching})
       : _availableVersions = availableVersions,
-        _downloadedFlutterVersions = downloadedFlutterVersions;
+        _downloadedFlutterVersions = downloadedFlutterVersions,
+        _commandOutput = commandOutput;
 
   @override
   final String fvmVersion;
@@ -284,8 +285,14 @@ class _$MainHomeStateImpl implements _MainHomeState {
 
   @override
   final String selectedVersion;
+  final List<Widget> _commandOutput;
   @override
-  final String commandOutput;
+  List<Widget> get commandOutput {
+    if (_commandOutput is EqualUnmodifiableListView) return _commandOutput;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_commandOutput);
+  }
+
   @override
   final bool isCheckingFvm;
   @override
@@ -319,8 +326,8 @@ class _$MainHomeStateImpl implements _MainHomeState {
                 other._downloadedFlutterVersions, _downloadedFlutterVersions) &&
             (identical(other.selectedVersion, selectedVersion) ||
                 other.selectedVersion == selectedVersion) &&
-            (identical(other.commandOutput, commandOutput) ||
-                other.commandOutput == commandOutput) &&
+            const DeepCollectionEquality()
+                .equals(other._commandOutput, _commandOutput) &&
             (identical(other.isCheckingFvm, isCheckingFvm) ||
                 other.isCheckingFvm == isCheckingFvm) &&
             (identical(other.isInstallingFvm, isInstallingFvm) ||
@@ -343,7 +350,7 @@ class _$MainHomeStateImpl implements _MainHomeState {
       selectedOnlineVersion,
       const DeepCollectionEquality().hash(_downloadedFlutterVersions),
       selectedVersion,
-      commandOutput,
+      const DeepCollectionEquality().hash(_commandOutput),
       isCheckingFvm,
       isInstallingFvm,
       isFetchingVersions,
@@ -367,7 +374,7 @@ abstract class _MainHomeState implements MainHomeState {
       required final String selectedOnlineVersion,
       required final List<String> downloadedFlutterVersions,
       required final String selectedVersion,
-      required final String commandOutput,
+      required final List<Widget> commandOutput,
       required final bool isCheckingFvm,
       required final bool isInstallingFvm,
       required final bool isFetchingVersions,
@@ -386,7 +393,7 @@ abstract class _MainHomeState implements MainHomeState {
   @override
   String get selectedVersion;
   @override
-  String get commandOutput;
+  List<Widget> get commandOutput;
   @override
   bool get isCheckingFvm;
   @override
