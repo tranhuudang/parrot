@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_version_manager/src/core/core.dart';
+import 'package:flutter_version_manager/src/core/utils/launchUrl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PaypalDonationWidget extends StatefulWidget {
@@ -14,7 +15,7 @@ class _PaypalDonationWidgetState extends State<PaypalDonationWidget> {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          _launchURL(OnlineDirectory.paypalLink);
+          openUrl(OnlineDirectory.paypalLink);
         },
         child: Container(
             width: 156,
@@ -23,18 +24,9 @@ class _PaypalDonationWidgetState extends State<PaypalDonationWidget> {
               borderRadius: BorderRadius.circular(10),
               color: Colors.black,
             ),
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
             child: Image.asset(
               'assets/donation/paypal-donate-button.png',
             )));
-  }
-
-  void _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
   }
 }

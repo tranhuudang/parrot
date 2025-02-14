@@ -9,10 +9,12 @@ import '../../../../core/core.dart';
 import '../model/downloaded_flutter_sdks.dart';
 import '../model/flutter_versions.dart';
 import 'main_home_state.dart';
+
 final mainHomeProvider =
-StateNotifierProvider<MainHomeNotifier, MainHomeState>((ref) {
+    StateNotifierProvider<MainHomeNotifier, MainHomeState>((ref) {
   return MainHomeNotifier();
 });
+
 class MainHomeNotifier extends StateNotifier<MainHomeState> {
   MainHomeNotifier() : super(MainHomeState.initial()) {
     initializeHome();

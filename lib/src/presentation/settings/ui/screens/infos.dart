@@ -1,4 +1,5 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:flutter_version_manager/src/core/utils/launchUrl.dart';
 import 'package:flutter_version_manager/src/presentation/donation/donation_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -75,7 +76,7 @@ class InfoView extends StatelessWidget {
         ),
         8.height,
         Text(
-          "© 2024 Tran Huu Dang. ${"All rights reserved.".i18n}",
+          "© ${DateTime.now().year} Tran Huu Dang. ${"All rights reserved.".i18n}",
           style: context.theme.textTheme.bodyMedium
               ?.copyWith(color: context.theme.colorScheme.onSurfaceVariant),
         ),
@@ -135,11 +136,8 @@ class InfoView extends StatelessWidget {
   // Helper function to create IconButtons with URL launching
   Widget _buildIconButton({required Icon icon, required String url}) {
     return IconButton(
-        onPressed: () async {
-          final Uri uri = Uri.parse(url);
-          if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
-            throw Exception('Could not launch $uri');
-          }
+        onPressed: ()  {
+          openUrl(url);
         },
         icon: icon);
   }
@@ -148,10 +146,7 @@ class InfoView extends StatelessWidget {
   Widget _buildFilledButton({required String url, required String text}) {
     return FilledButton.tonal(
         onPressed: () async {
-          final Uri uri = Uri.parse(url);
-          if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
-            throw Exception('Could not launch $uri');
-          }
+          openUrl(url);
         },
         child: Text(text));
   }
