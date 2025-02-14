@@ -13,7 +13,8 @@ class DesktopNavigationFrame extends StatefulWidget {
   final StatefulNavigationShell navigationShell;
 
   const DesktopNavigationFrame({
-    super.key, required this.navigationShell,
+    super.key,
+    required this.navigationShell,
   });
 
   @override
@@ -81,7 +82,7 @@ class _DesktopNavigationFrameState extends State<DesktopNavigationFrame>
                       child: Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: Image.asset(
-                          'assets/images/app-icon.png',
+                          LocalDirectory.appLogo,
                         ),
                       )),
                   const Text(DefaultSettings.appName),

@@ -36,7 +36,7 @@ class InfoView extends StatelessWidget {
         Column(
           children: [
             const Image(
-              image: AssetImage(LocalDirectory.rebookLogo256),
+              image: AssetImage(LocalDirectory.appLogo),
               height: 90,
             ),
             8.height,

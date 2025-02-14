@@ -84,7 +84,7 @@ flutter:
     - assets/
     - assets/release_notes/release_notes.json
     - assets/badges/
-    - assets/images/app-icon.png
+    - assets/images/app_icon.png
     - assets/donation/
 msix_config:
   display_name: Flutter Version Manager
