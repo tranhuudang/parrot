@@ -41,7 +41,7 @@ class InfoView extends StatelessWidget {
             ),
             8.height,
             Text(
-              DefaultSettings.appName,
+              DefaultSettings.appFullName,
               style: context.theme.textTheme.titleLarge?.copyWith(
                   color: context.theme.colorScheme.onSurface,
                   fontWeight: FontWeight.bold),

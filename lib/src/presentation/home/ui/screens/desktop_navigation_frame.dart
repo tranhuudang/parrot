@@ -85,7 +85,7 @@ class _DesktopNavigationFrameState extends State<DesktopNavigationFrame>
                           LocalDirectory.appLogo,
                         ),
                       )),
-                  const Text(DefaultSettings.appName),
+                  const Text(DefaultSettings.appShortName),
                   const Spacer(),
                   IconButton(
                       onPressed: () {

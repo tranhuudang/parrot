@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import '../../domain/domain.dart';
 
 class DefaultSettings {
-  static const String appName = 'Parrot | Flutter Version Manager for Desktop';
+  static const String appFullName = 'Parrot | Flutter Version Manager for Desktop';
+  static const String appShortName = 'Parrot';
   static const Size defaultWindowsSize = Size(850, 620);
   static const Size minWindowsSize = Size(850, 620);
   static const Size maxWindowsSize = Size(5000, 10000);
