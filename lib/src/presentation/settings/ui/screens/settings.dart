@@ -129,46 +129,6 @@ class _SettingsViewState extends State<SettingsView> {
                 const LanguageSwitcher(),
               ],
             ),
-            16.height,
-            const ThemeColorPalette(),
-            8.height,
-            const Divider(),
-            Row(
-              children: [
-                Expanded(
-                    child: ListTile(
-                        minLeadingWidth: 0,
-                        contentPadding: const EdgeInsets.symmetric(vertical: 8),
-                        title: Text(
-                          'Restore from a backup file'.i18n,
-                          style: context.theme.textTheme.titleSmall,
-                        ),
-                        subtitle: Text(
-                          'personal-data-notice'.i18n,
-                        ))),
-                8.width,
-                SizedBox(
-                  width: 200,
-                  child: Column(
-                    children: [
-                      FilledButton.tonal(
-                          child: Text('Create a new backup'.i18n),
-                          onPressed: () {
-                            _createBackupFiles();
-                          }),
-                      8.height,
-                      DividerWithText(text: 'or'.i18n),
-                      8.height,
-                      FilledButton.tonal(
-                          child: Text('Restore'.i18n),
-                          onPressed: () {
-                            _restoreBackupFiles();
-                          }),
-                    ],
-                  ),
-                ),
-              ],
-            ),
 
             const Divider(),
             ListTile(
