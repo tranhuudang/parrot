@@ -1,8 +1,4 @@
-
 import 'package:flutter_version_manager/src/core/core.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import '../../../presentation.dart';
 import '../widgets/main_home_body.dart';
 
@@ -50,7 +46,7 @@ class _DesktopHomeScreenState extends State<DesktopHomeScreen> {
           Row(children: [
             Expanded(
               child: Container(
-                height: 176,
+                height: 136,
                 color: context.theme.colorScheme.surfaceContainerLow,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -91,24 +87,6 @@ class _DesktopHomeScreenState extends State<DesktopHomeScreen> {
                               ],
                             ),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              _buildIconButton(
-                                  icon: const Icon(
-                                    FontAwesomeIcons.github,
-                                    size: 16,
-                                  ),
-                                  url:
-                                      'https://github.com/tranhuudang/flutter_version_manager'),
-                              _buildIconButton(
-                                  icon: const Icon(
-                                    Icons.mail,
-                                    size: 20,
-                                  ),
-                                  url: 'mailto:dt148f148@gmail.com'),
-                            ],
-                          ),
                         ],
                       ),
                     ],
@@ -130,40 +108,4 @@ class _DesktopHomeScreenState extends State<DesktopHomeScreen> {
       ),
     );
   }
-}
-
-class DashboardShape extends StatelessWidget {
-  final Color backgroundColor;
-  final Color textColor;
-  final Widget? child;
-  const DashboardShape({
-    super.key,
-    required this.backgroundColor,
-    required this.textColor,
-    this.child,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 4,
-      width: 86,
-      color: backgroundColor,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: child ?? const SizedBox.shrink(),
-      ),
-    );
-  }
-}
-
-Widget _buildIconButton({required Icon icon, required String url}) {
-  return IconButton(
-      onPressed: () async {
-        final Uri uri = Uri.parse(url);
-        if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
-          throw Exception('Could not launch $uri');
-        }
-      },
-      icon: icon);
 }

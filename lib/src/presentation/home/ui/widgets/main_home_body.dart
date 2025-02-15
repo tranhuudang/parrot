@@ -191,10 +191,10 @@ class MainHomeBody extends ConsumerWidget {
                               opacity: !state.isRunning ? 1: .5,
                               child: InkWell(
                                 child: Container(
-                                  padding: EdgeInsets.only(left: 7, right: 9, bottom: 8, top: 8),
+                                  padding: const EdgeInsets.only(left: 7, right: 9, bottom: 8, top: 8),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(5),
-                                    color: Color(0xFF66BB6A)
+                                    color: const Color(0xFF66BB6A)
                                   ),
                                   child: const Icon(
                                     FluentIcons.play_16_regular, size: 16,
@@ -210,10 +210,10 @@ class MainHomeBody extends ConsumerWidget {
                               opacity: state.isRunning ? 1: .5,
                               child: InkWell(
                                 child: Container(
-                                  padding: EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 8),
+                                  padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 8),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5),
-                                      color: Color(0xFFF50057)
+                                      color: const Color(0xFFF50057)
                                   ),
                                   child: const Icon(
                                     FluentIcons.stop_16_regular, size: 16,
@@ -229,7 +229,7 @@ class MainHomeBody extends ConsumerWidget {
                                 opacity: state.isRunning ? 1: .5,
                                 child: InkWell(
                                   child: Container(
-                                    padding: EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 8),
+                                    padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 8),
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(5),
                                         color: Colors.orange
