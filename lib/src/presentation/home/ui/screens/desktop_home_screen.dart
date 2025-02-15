@@ -52,11 +52,46 @@ class _DesktopHomeScreenState extends State<DesktopHomeScreen> {
                   padding: const EdgeInsets.all(8.0),
                   child: Stack(
                     children: [
-                      Opacity(
-                        opacity: .3,
-                        child: Align(
-                            alignment: Alignment.centerRight,
-                            child: Image.asset('assets/flutter.png')),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Opacity(
+                            opacity: .01,
+                            child: Align(
+                                alignment: Alignment.centerRight,
+                                child: Image.asset(
+                                  'assets/flutter.png',
+                                  height: 30,
+                                  width: 30,
+                                )),
+                          ),
+                          Opacity(
+                            opacity: .05,
+                            child: Align(
+                                alignment: Alignment.centerRight,
+                                child: Image.asset(
+                                  'assets/flutter.png',
+                                  height: 50,
+                                  width: 50,
+                                )),
+                          ),
+                          Opacity(
+                            opacity: .1,
+                            child: Align(
+                                alignment: Alignment.centerRight,
+                                child: Image.asset(
+                                  'assets/flutter.png',
+                                  height: 80,
+                                  width: 80,
+                                )),
+                          ),
+                          Opacity(
+                            opacity: .2,
+                            child: Align(
+                                alignment: Alignment.centerRight,
+                                child: Image.asset('assets/flutter.png')),
+                          ),
+                        ],
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

@@ -7,3 +7,7 @@ void goToStoreListing() async {
 void goToBugReport() async {
   openUrl('https://github.com/tranhuudang/flutter_version_manager/issues');
 }
+
+void goToGithub() async {
+  openUrl('https://github.com/tranhuudang/flutter_version_manager');
+}

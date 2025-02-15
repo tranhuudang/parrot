@@ -4,6 +4,7 @@ import 'package:flutter_version_manager/src/core/router/route_configurations_des
 import 'package:flutter_version_manager/src/presentation/home/data/utils/upgrader_config.dart';
 import 'package:flutter_version_manager/src/presentation/presentation.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:upgrader/upgrader.dart';
 import 'package:window_manager/window_manager.dart';
