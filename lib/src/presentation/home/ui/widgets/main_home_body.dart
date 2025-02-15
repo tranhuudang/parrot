@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_version_manager/src/core/core.dart';
 import 'package:flutter_version_manager/src/core/utils/launchUrl.dart';
 import 'package:flutter_version_manager/src/presentation/home/ui/screens/install_fvm_instruction.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_version_manager/src/presentation/home/ui/widgets/platform_selector.dart';
 import '../../data/notifier/main_home_notifier.dart';
 
 class MainHomeBody extends ConsumerWidget {
@@ -115,6 +115,7 @@ class MainHomeBody extends ConsumerWidget {
                         enabled: false,
                         controller: notifier.projectPathController,
                         readOnly: true,
+                        style: TextStyle(color: context.theme.colorScheme.primary),
                         decoration: const InputDecoration(
                           hintText: 'Selected Flutter Project Path',
                           border: InputBorder.none,
@@ -127,52 +128,129 @@ class MainHomeBody extends ConsumerWidget {
                     ),
                   ],
                 ),
-                if (notifier.projectPathController.text.isNotEmpty) ...[
-                  Row(
-                    children: [
-                      const Text("Select new Flutter version to switch:"),
-                      8.width,
-                      DropdownButton<String>(
-                        value: state.selectedVersion.isNotEmpty
-                            ? state.selectedVersion
-                            : null,
-                        hint: const Text("Select Flutter Version"),
-                        items: state.downloadedFlutterVersions
-                            .map((version) => DropdownMenuItem(
-                                  value: version,
-                                  child: Text(version),
-                                ))
-                            .toList(),
-                        onChanged: (value) {
-                          if (value != null) {
-                            notifier.selectDownloadedVersion(value);
-                          }
-                        },
-                      ),
-                      8.width,
-                      IconButton(
-                        onPressed: () =>
-                            notifier.fetchDownloadedFlutterVersions(),
-                        icon: const Icon(FluentIcons.arrow_sync_16_regular),
-                      ),
-                      const Spacer(),
-                      8.width,
-                      ElevatedButton(
-                        onPressed: state.isSwitching
-                            ? null
-                            : () => notifier.switchFlutterVersion(
-                                notifier.projectPathController.text),
-                        child: state.isSwitching
-                            ? const SizedBox(
-                                height: 20,
-                                width: 20,
-                                child: CircularProgressIndicator())
-                            : const Text("Switch"),
-                      ),
-                    ],
-                  ),
-                  8.height,
+                if (state.projectPath.isNotEmpty) ...[
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(FluentIcons.circle_16_regular, size: 14,),
+                            16.width,
+                            const Text("Select new Flutter version to switch:"),
+                            8.width,
+                            DropdownButton<String>(
+                              value: state.selectedVersion.isNotEmpty
+                                  ? state.selectedVersion
+                                  : null,
+                              hint: const Text("Select Flutter Version"),
+                              items: state.downloadedFlutterVersions
+                                  .map((version) => DropdownMenuItem(
+                                        value: version,
+                                        child: Text(version),
+                                      ))
+                                  .toList(),
+                              onChanged: (value) {
+                                if (value != null) {
+                                  notifier.selectDownloadedVersion(value);
+                                }
+                              },
+                            ),
+                            8.width,
+                            IconButton(
+                              onPressed: () =>
+                                  notifier.fetchDownloadedFlutterVersions(),
+                              icon: const Icon(FluentIcons.arrow_sync_16_regular),
+                            ),
+                            const Spacer(),
+                            8.width,
+                            ElevatedButton(
+                              onPressed: state.isSwitching
+                                  ? null
+                                  : () => notifier.switchFlutterVersion(
+                                      notifier.projectPathController.text),
+                              child: state.isSwitching
+                                  ? const SizedBox(
+                                      height: 20,
+                                      width: 20,
+                                      child: CircularProgressIndicator())
+                                  : const Text("Switch"),
+                            ),
+                          ],
+                        ),
+                        8.height,
+                        Row(
+                          children: [
+                            const Icon(FluentIcons.circle_16_regular, size: 14,),
+                            16.width,
+                            Text(state.projectPath.substring(state.projectPath.lastIndexOf('\\')+1)),
+                            16.width,
+                            const PlatformSelector(),
+                            16.width,
+                            Opacity(
+                              opacity: !state.isRunning ? 1: .5,
+                              child: InkWell(
+                                child: Container(
+                                  padding: EdgeInsets.only(left: 7, right: 9, bottom: 8, top: 8),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: Color(0xFF66BB6A)
+                                  ),
+                                  child: const Icon(
+                                    FluentIcons.play_16_regular, size: 16,
+                                  ),
+                                ),
+                                onTap: () {
+                                  notifier.runFlutterProject();
+                                },
+                              ),
+                            ),
+                            8.width,
+                            Opacity(
+                              opacity: state.isRunning ? 1: .5,
+                              child: InkWell(
+                                child: Container(
+                                  padding: EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 8),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: Color(0xFFF50057)
+                                  ),
+                                  child: const Icon(
+                                    FluentIcons.stop_16_regular, size: 16,
+                                  ),
+                                ),
+                                onTap: () {
+                                  notifier.stopFlutterProject();
+                                },
+                              ),
+                            ),
+                            8.width,
+                              Opacity(
+                                opacity: state.isRunning ? 1: .5,
+                                child: InkWell(
+                                  child: Container(
+                                    padding: EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 8),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        color: Colors.orange
+                                    ),
+                                    child: const Icon(
+                                      FluentIcons.arrow_sync_24_regular, size: 16,
+                                    ),
+                                  ),
+                                onTap: () {
+                                  notifier.hotReloadFlutterProject();
+                                },
+                                                            ),
+                              ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
+
                 ],
+                8.height,
                 Expanded(
                   child: Container(
                     width: double.infinity,

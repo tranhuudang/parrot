@@ -29,6 +29,11 @@ mixin _$MainHomeState {
   bool get isDownloading => throw _privateConstructorUsedError;
   bool get isFetchingDownloaded => throw _privateConstructorUsedError;
   bool get isSwitching => throw _privateConstructorUsedError;
+  String get projectPath => throw _privateConstructorUsedError;
+  String get selectedPlatform => throw _privateConstructorUsedError;
+  List<String> get availablePlatforms => throw _privateConstructorUsedError;
+  bool get isRunning => throw _privateConstructorUsedError;
+  bool get isHotReloading => throw _privateConstructorUsedError;
 
   /// Create a copy of MainHomeState
   /// with the given fields replaced by the non-null parameter values.
@@ -55,7 +60,12 @@ abstract class $MainHomeStateCopyWith<$Res> {
       bool isFetchingVersions,
       bool isDownloading,
       bool isFetchingDownloaded,
-      bool isSwitching});
+      bool isSwitching,
+      String projectPath,
+      String selectedPlatform,
+      List<String> availablePlatforms,
+      bool isRunning,
+      bool isHotReloading});
 }
 
 /// @nodoc
@@ -85,6 +95,11 @@ class _$MainHomeStateCopyWithImpl<$Res, $Val extends MainHomeState>
     Object? isDownloading = null,
     Object? isFetchingDownloaded = null,
     Object? isSwitching = null,
+    Object? projectPath = null,
+    Object? selectedPlatform = null,
+    Object? availablePlatforms = null,
+    Object? isRunning = null,
+    Object? isHotReloading = null,
   }) {
     return _then(_value.copyWith(
       fvmVersion: null == fvmVersion
@@ -135,6 +150,26 @@ class _$MainHomeStateCopyWithImpl<$Res, $Val extends MainHomeState>
           ? _value.isSwitching
           : isSwitching // ignore: cast_nullable_to_non_nullable
               as bool,
+      projectPath: null == projectPath
+          ? _value.projectPath
+          : projectPath // ignore: cast_nullable_to_non_nullable
+              as String,
+      selectedPlatform: null == selectedPlatform
+          ? _value.selectedPlatform
+          : selectedPlatform // ignore: cast_nullable_to_non_nullable
+              as String,
+      availablePlatforms: null == availablePlatforms
+          ? _value.availablePlatforms
+          : availablePlatforms // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      isRunning: null == isRunning
+          ? _value.isRunning
+          : isRunning // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isHotReloading: null == isHotReloading
+          ? _value.isHotReloading
+          : isHotReloading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -159,7 +194,12 @@ abstract class _$$MainHomeStateImplCopyWith<$Res>
       bool isFetchingVersions,
       bool isDownloading,
       bool isFetchingDownloaded,
-      bool isSwitching});
+      bool isSwitching,
+      String projectPath,
+      String selectedPlatform,
+      List<String> availablePlatforms,
+      bool isRunning,
+      bool isHotReloading});
 }
 
 /// @nodoc
@@ -187,6 +227,11 @@ class __$$MainHomeStateImplCopyWithImpl<$Res>
     Object? isDownloading = null,
     Object? isFetchingDownloaded = null,
     Object? isSwitching = null,
+    Object? projectPath = null,
+    Object? selectedPlatform = null,
+    Object? availablePlatforms = null,
+    Object? isRunning = null,
+    Object? isHotReloading = null,
   }) {
     return _then(_$MainHomeStateImpl(
       fvmVersion: null == fvmVersion
@@ -237,6 +282,26 @@ class __$$MainHomeStateImplCopyWithImpl<$Res>
           ? _value.isSwitching
           : isSwitching // ignore: cast_nullable_to_non_nullable
               as bool,
+      projectPath: null == projectPath
+          ? _value.projectPath
+          : projectPath // ignore: cast_nullable_to_non_nullable
+              as String,
+      selectedPlatform: null == selectedPlatform
+          ? _value.selectedPlatform
+          : selectedPlatform // ignore: cast_nullable_to_non_nullable
+              as String,
+      availablePlatforms: null == availablePlatforms
+          ? _value._availablePlatforms
+          : availablePlatforms // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      isRunning: null == isRunning
+          ? _value.isRunning
+          : isRunning // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isHotReloading: null == isHotReloading
+          ? _value.isHotReloading
+          : isHotReloading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -256,10 +321,16 @@ class _$MainHomeStateImpl implements _MainHomeState {
       required this.isFetchingVersions,
       required this.isDownloading,
       required this.isFetchingDownloaded,
-      required this.isSwitching})
+      required this.isSwitching,
+      required this.projectPath,
+      required this.selectedPlatform,
+      required final List<String> availablePlatforms,
+      required this.isRunning,
+      required this.isHotReloading})
       : _availableVersions = availableVersions,
         _downloadedFlutterVersions = downloadedFlutterVersions,
-        _commandOutput = commandOutput;
+        _commandOutput = commandOutput,
+        _availablePlatforms = availablePlatforms;
 
   @override
   final String fvmVersion;
@@ -305,10 +376,27 @@ class _$MainHomeStateImpl implements _MainHomeState {
   final bool isFetchingDownloaded;
   @override
   final bool isSwitching;
+  @override
+  final String projectPath;
+  @override
+  final String selectedPlatform;
+  final List<String> _availablePlatforms;
+  @override
+  List<String> get availablePlatforms {
+    if (_availablePlatforms is EqualUnmodifiableListView)
+      return _availablePlatforms;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_availablePlatforms);
+  }
+
+  @override
+  final bool isRunning;
+  @override
+  final bool isHotReloading;
 
   @override
   String toString() {
-    return 'MainHomeState(fvmVersion: $fvmVersion, availableVersions: $availableVersions, selectedOnlineVersion: $selectedOnlineVersion, downloadedFlutterVersions: $downloadedFlutterVersions, selectedVersion: $selectedVersion, commandOutput: $commandOutput, isCheckingFvm: $isCheckingFvm, isInstallingFvm: $isInstallingFvm, isFetchingVersions: $isFetchingVersions, isDownloading: $isDownloading, isFetchingDownloaded: $isFetchingDownloaded, isSwitching: $isSwitching)';
+    return 'MainHomeState(fvmVersion: $fvmVersion, availableVersions: $availableVersions, selectedOnlineVersion: $selectedOnlineVersion, downloadedFlutterVersions: $downloadedFlutterVersions, selectedVersion: $selectedVersion, commandOutput: $commandOutput, isCheckingFvm: $isCheckingFvm, isInstallingFvm: $isInstallingFvm, isFetchingVersions: $isFetchingVersions, isDownloading: $isDownloading, isFetchingDownloaded: $isFetchingDownloaded, isSwitching: $isSwitching, projectPath: $projectPath, selectedPlatform: $selectedPlatform, availablePlatforms: $availablePlatforms, isRunning: $isRunning, isHotReloading: $isHotReloading)';
   }
 
   @override
@@ -339,7 +427,17 @@ class _$MainHomeStateImpl implements _MainHomeState {
             (identical(other.isFetchingDownloaded, isFetchingDownloaded) ||
                 other.isFetchingDownloaded == isFetchingDownloaded) &&
             (identical(other.isSwitching, isSwitching) ||
-                other.isSwitching == isSwitching));
+                other.isSwitching == isSwitching) &&
+            (identical(other.projectPath, projectPath) ||
+                other.projectPath == projectPath) &&
+            (identical(other.selectedPlatform, selectedPlatform) ||
+                other.selectedPlatform == selectedPlatform) &&
+            const DeepCollectionEquality()
+                .equals(other._availablePlatforms, _availablePlatforms) &&
+            (identical(other.isRunning, isRunning) ||
+                other.isRunning == isRunning) &&
+            (identical(other.isHotReloading, isHotReloading) ||
+                other.isHotReloading == isHotReloading));
   }
 
   @override
@@ -356,7 +454,12 @@ class _$MainHomeStateImpl implements _MainHomeState {
       isFetchingVersions,
       isDownloading,
       isFetchingDownloaded,
-      isSwitching);
+      isSwitching,
+      projectPath,
+      selectedPlatform,
+      const DeepCollectionEquality().hash(_availablePlatforms),
+      isRunning,
+      isHotReloading);
 
   /// Create a copy of MainHomeState
   /// with the given fields replaced by the non-null parameter values.
@@ -380,7 +483,12 @@ abstract class _MainHomeState implements MainHomeState {
       required final bool isFetchingVersions,
       required final bool isDownloading,
       required final bool isFetchingDownloaded,
-      required final bool isSwitching}) = _$MainHomeStateImpl;
+      required final bool isSwitching,
+      required final String projectPath,
+      required final String selectedPlatform,
+      required final List<String> availablePlatforms,
+      required final bool isRunning,
+      required final bool isHotReloading}) = _$MainHomeStateImpl;
 
   @override
   String get fvmVersion;
@@ -406,6 +514,16 @@ abstract class _MainHomeState implements MainHomeState {
   bool get isFetchingDownloaded;
   @override
   bool get isSwitching;
+  @override
+  String get projectPath;
+  @override
+  String get selectedPlatform;
+  @override
+  List<String> get availablePlatforms;
+  @override
+  bool get isRunning;
+  @override
+  bool get isHotReloading;
 
   /// Create a copy of MainHomeState
   /// with the given fields replaced by the non-null parameter values.

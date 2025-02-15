@@ -80,9 +80,11 @@ class MainHomeNotifier extends StateNotifier<MainHomeState> {
       Process process =
           await Process.start('fvm', ['install', state.selectedOnlineVersion]);
       process.stdout.transform(utf8.decoder).listen((data) {
-        List<Widget> newList = List.from(state.commandOutput);  // Make a copy of the list
-        newList.insert(0, Text(data));  // Modify the list
-        state = state.copyWith(commandOutput: newList);  // Update state with the new list
+        List<Widget> newList =
+            List.from(state.commandOutput); // Make a copy of the list
+        newList.insert(0, Text(data)); // Modify the list
+        state = state.copyWith(
+            commandOutput: newList); // Update state with the new list
       });
       process.exitCode.then((exitCode) {
         if (exitCode == 0) {
@@ -134,9 +136,11 @@ class MainHomeNotifier extends StateNotifier<MainHomeState> {
           'cmd', ['/c', 'echo y | fvm use ${state.selectedVersion}'],
           workingDirectory: projectPath);
       process.stdout.transform(utf8.decoder).listen((data) {
-        List<Widget> newList = List.from(state.commandOutput);  // Make a copy of the list
-        newList.insert(0, Text(data));  // Modify the list
-        state = state.copyWith(commandOutput: newList);  // Update state with the new list
+        List<Widget> newList =
+            List.from(state.commandOutput); // Make a copy of the list
+        newList.insert(0, Text(data)); // Modify the list
+        state = state.copyWith(
+            commandOutput: newList); // Update state with the new list
       });
       process.exitCode.then((exitCode) {
         state =
@@ -187,6 +191,98 @@ class MainHomeNotifier extends StateNotifier<MainHomeState> {
     String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
     if (selectedDirectory != null) {
       projectPathController.text = selectedDirectory;
+      state = state.copyWith(projectPath: selectedDirectory);
+      List<String> availablePlatforms = await fetchFlutterPlatforms();
+      state = state.copyWith(availablePlatforms: availablePlatforms);
     }
+  }
+
+  void selectPlatform(String platform) {
+    print('try to set pleftom');
+    state = state.copyWith(selectedPlatform: platform);
+  }
+
+  Process? flutterProcess;
+
+  Future<void> runFlutterProject() async {
+    if (state.projectPath.isEmpty) return;
+    print(state.projectPath);
+    state = state.copyWith(isRunning: true);
+    try {
+      flutterProcess = await Process.start(
+          'fvm', ['flutter', 'run', '-d', state.selectedPlatform],
+          workingDirectory: state.projectPath);
+      print(state.projectPath);
+      flutterProcess!.stdout.transform(utf8.decoder).listen((data) {
+        List<Widget> newList = List.from(state.commandOutput);
+        newList.insert(0, Text(data));
+        state = state.copyWith(commandOutput: newList);
+      });
+
+      flutterProcess!.exitCode.then((exitCode) {
+        state = state.copyWith(isRunning: false);
+      });
+    } catch (e) {
+      DebugLog.error("Error running Flutter project: $e");
+      state = state.copyWith(isRunning: false);
+    }
+  }
+
+  Future<void> stopFlutterProject() async {
+    if (flutterProcess == null) return;
+
+    state = state.copyWith(isRunning: false);
+    try {
+      flutterProcess!.kill();
+      flutterProcess = null;
+    } catch (e) {
+      DebugLog.error("Error stopping Flutter project: $e");
+    }
+  }
+
+  Future<void> hotReloadFlutterProject() async {
+    if (flutterProcess == null) return;
+
+    state = state.copyWith(isHotReloading: true);
+    try {
+      flutterProcess!.stdin.writeln('r'); // Sends 'r' to trigger hot reload
+      state = state.copyWith(isHotReloading: false);
+    } catch (e) {
+      DebugLog.error("Error triggering hot reload: $e");
+      state = state.copyWith(isHotReloading: false);
+    }
+  }
+
+  Future<List<String>> fetchFlutterPlatforms() async {
+    try {
+      // Run the flutter devices command
+      print('getting available devices');
+      ProcessResult result = await Process.run('fvm', ['flutter', 'devices']);
+      if (result.exitCode == 0) {
+        String output = result.stdout.toString();
+        List<String> platforms = [];
+
+        // Split the output into lines
+        List<String> lines = output.split('\n');
+
+        // Loop through the lines and extract the platform names
+        for (var line in lines) {
+          // Look for lines that start with the platform name (Windows, Chrome, etc.)
+          if (line.contains('(')) {
+            // Example: "Windows (desktop) • windows • windows-x64    • Microsoft Windows"
+            // Extract the platform name before the first '('
+            var platformName = line.split('(').first.trim();
+
+            // Add the platform to the list
+            platforms.add(platformName);
+          }
+        }
+
+        return platforms;
+      }
+    } catch (e) {
+      DebugLog.error("Error fetching Flutter platforms: $e");
+    }
+    return [];
   }
 }
