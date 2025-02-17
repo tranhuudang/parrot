@@ -8,9 +8,9 @@ class CustomBackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
+      onTap: onPressed ?? () {
         goBranch(0);
-      },
+      } ,
       child: const Row(
         mainAxisSize: MainAxisSize.min,
         children: [

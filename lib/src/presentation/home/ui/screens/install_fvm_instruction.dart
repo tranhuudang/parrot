@@ -15,7 +15,11 @@ class InstallFVMScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const CustomBackButton(),
+        leading: CustomBackButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         title: CustomTitle(
             title: 'Install FVM CLI on Windows'.i18n,
             iconData: FluentIcons.code_16_regular),

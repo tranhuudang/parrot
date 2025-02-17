@@ -3,7 +3,7 @@ import 'package:upgrader/upgrader.dart';
 
 class UpgraderConfig {
   static const _appcastURL =
-      'https://raw.githubusercontent.com/tranhuudang/flutter_version_manager/master/version.xml';
+      'https://raw.githubusercontent.com/tranhuudang/parrot/master/version.xml';
   static final upgrader = Upgrader(
     languageCode: Properties.instance.settings.language.toLocale().languageCode,
     //debugDisplayAlways: true,
