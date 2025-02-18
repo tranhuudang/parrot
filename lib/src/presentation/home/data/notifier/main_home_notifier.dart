@@ -27,6 +27,7 @@ class MainHomeNotifier extends StateNotifier<MainHomeState> {
     await checkFvmInstallation();
     await fetchOnlineFlutterVersions();
     await fetchDownloadedFlutterVersions();
+    await gettingSavedCurrentProjectPath();
   }
 
   // Check if FVM is installed and update the state
@@ -191,16 +192,40 @@ class MainHomeNotifier extends StateNotifier<MainHomeState> {
     String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
     if (selectedDirectory != null) {
       projectPathController.text = selectedDirectory;
-      state = state.copyWith(projectPath: selectedDirectory, isGettingAvailableDevices: true);
-      List<String> availablePlatforms = await fetchFlutterPlatforms();
-      state = state.copyWith(availablePlatforms: availablePlatforms, isGettingAvailableDevices: false);
+      // Save the current project path to shared preferences
+      Properties.instance.saveSettings(Properties.instance.settings
+          .copyWith(currentTargetProjectPath: selectedDirectory));
+      state = state.copyWith(projectPath: selectedDirectory);
+      await gettingFlutterPlatform();
     }
+  }
+
+  Future<void> gettingSavedCurrentProjectPath() async {
+    final currentTargetProjectPath =
+        Properties.instance.settings.currentTargetProjectPath;
+    if (currentTargetProjectPath.isNotEmpty) {
+      projectPathController.text = currentTargetProjectPath;
+      state = state.copyWith(
+        projectPath: currentTargetProjectPath,
+      );
+      await gettingFlutterPlatform();
+    }
+  }
+
+  Future<void> gettingFlutterPlatform() async {
+    state = state.copyWith(isGettingAvailableDevices: true);
+    List<String> availablePlatforms = await fetchFlutterPlatforms();
+    state = state.copyWith(
+        availablePlatforms: availablePlatforms,
+        isGettingAvailableDevices: false);
   }
 
   Future<void> refreshAvailableDevices() async {
     state = state.copyWith(isGettingAvailableDevices: true);
     List<String> availablePlatforms = await fetchFlutterPlatforms();
-    state = state.copyWith(availablePlatforms: availablePlatforms, isGettingAvailableDevices: false);
+    state = state.copyWith(
+        availablePlatforms: availablePlatforms,
+        isGettingAvailableDevices: false);
   }
 
   void selectPlatform(String platform) {

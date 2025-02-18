@@ -19,6 +19,9 @@ class Settings with _$Settings {
     /// to [Locale('en', 'US')] to change value of the app
     required String language,
 
+    /// Current working project
+    required String currentTargetProjectPath,
+
     /// Hold windows size value
     required double windowsWidth,
 

@@ -25,11 +25,7 @@ class PlatformSelector extends ConsumerWidget {
         );
       }).toList(),
       onChanged: (String? selectedPlatform) {
-        print(selectedPlatform);
-        notifier.selectPlatform(selectedPlatform!); // Handle platform selection
-        print('Selected platform: $selectedPlatform');
-        print('fgdfg');
-        print(state.selectedPlatform);
+        notifier.selectPlatform(selectedPlatform!);
       },
     );
   }

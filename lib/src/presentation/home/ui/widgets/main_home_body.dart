@@ -210,7 +210,7 @@ class MainHomeBody extends ConsumerWidget {
                                   padding: const EdgeInsets.only(
                                       left: 7, right: 9, bottom: 8, top: 8),
                                   decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
+                                      borderRadius: BorderRadius.circular(10),
                                       color: const Color(0xFF66BB6A)),
                                   child: const Icon(
                                     FluentIcons.play_16_regular,
@@ -230,7 +230,7 @@ class MainHomeBody extends ConsumerWidget {
                                   padding: const EdgeInsets.only(
                                       left: 8, right: 8, bottom: 8, top: 8),
                                   decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
+                                      borderRadius: BorderRadius.circular(10),
                                       color: const Color(0xFFF50057)),
                                   child: const Icon(
                                     FluentIcons.stop_16_regular,
@@ -250,7 +250,7 @@ class MainHomeBody extends ConsumerWidget {
                                   padding: const EdgeInsets.only(
                                       left: 8, right: 8, bottom: 8, top: 8),
                                   decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
+                                      borderRadius: BorderRadius.circular(10),
                                       color: Colors.orange),
                                   child: const Icon(
                                     FluentIcons.arrow_sync_24_regular,

@@ -31,6 +31,9 @@ mixin _$Settings {
   /// to [Locale('en', 'US')] to change value of the app
   String get language => throw _privateConstructorUsedError;
 
+  /// Current working project
+  String get currentTargetProjectPath => throw _privateConstructorUsedError;
+
   /// Hold windows size value
   double get windowsWidth => throw _privateConstructorUsedError;
 
@@ -59,6 +62,7 @@ abstract class $SettingsCopyWith<$Res> {
       int openAppCount,
       bool didRateApp,
       String language,
+      String currentTargetProjectPath,
       double windowsWidth,
       double windowsHeight,
       int themeColor});
@@ -84,6 +88,7 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
     Object? openAppCount = null,
     Object? didRateApp = null,
     Object? language = null,
+    Object? currentTargetProjectPath = null,
     Object? windowsWidth = null,
     Object? windowsHeight = null,
     Object? themeColor = null,
@@ -108,6 +113,10 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
       language: null == language
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
+              as String,
+      currentTargetProjectPath: null == currentTargetProjectPath
+          ? _value.currentTargetProjectPath
+          : currentTargetProjectPath // ignore: cast_nullable_to_non_nullable
               as String,
       windowsWidth: null == windowsWidth
           ? _value.windowsWidth
@@ -138,6 +147,7 @@ abstract class _$$SettingImplCopyWith<$Res> implements $SettingsCopyWith<$Res> {
       int openAppCount,
       bool didRateApp,
       String language,
+      String currentTargetProjectPath,
       double windowsWidth,
       double windowsHeight,
       int themeColor});
@@ -161,6 +171,7 @@ class __$$SettingImplCopyWithImpl<$Res>
     Object? openAppCount = null,
     Object? didRateApp = null,
     Object? language = null,
+    Object? currentTargetProjectPath = null,
     Object? windowsWidth = null,
     Object? windowsHeight = null,
     Object? themeColor = null,
@@ -185,6 +196,10 @@ class __$$SettingImplCopyWithImpl<$Res>
       language: null == language
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
+              as String,
+      currentTargetProjectPath: null == currentTargetProjectPath
+          ? _value.currentTargetProjectPath
+          : currentTargetProjectPath // ignore: cast_nullable_to_non_nullable
               as String,
       windowsWidth: null == windowsWidth
           ? _value.windowsWidth
@@ -211,6 +226,7 @@ class _$SettingImpl implements _Setting {
       required this.openAppCount,
       required this.didRateApp,
       required this.language,
+      required this.currentTargetProjectPath,
       required this.windowsWidth,
       required this.windowsHeight,
       required this.themeColor});
@@ -235,6 +251,10 @@ class _$SettingImpl implements _Setting {
   @override
   final String language;
 
+  /// Current working project
+  @override
+  final String currentTargetProjectPath;
+
   /// Hold windows size value
   @override
   final double windowsWidth;
@@ -250,7 +270,7 @@ class _$SettingImpl implements _Setting {
 
   @override
   String toString() {
-    return 'Settings(themeMode: $themeMode, enableAdaptiveTheme: $enableAdaptiveTheme, openAppCount: $openAppCount, didRateApp: $didRateApp, language: $language, windowsWidth: $windowsWidth, windowsHeight: $windowsHeight, themeColor: $themeColor)';
+    return 'Settings(themeMode: $themeMode, enableAdaptiveTheme: $enableAdaptiveTheme, openAppCount: $openAppCount, didRateApp: $didRateApp, language: $language, currentTargetProjectPath: $currentTargetProjectPath, windowsWidth: $windowsWidth, windowsHeight: $windowsHeight, themeColor: $themeColor)';
   }
 
   @override
@@ -268,6 +288,9 @@ class _$SettingImpl implements _Setting {
                 other.didRateApp == didRateApp) &&
             (identical(other.language, language) ||
                 other.language == language) &&
+            (identical(
+                    other.currentTargetProjectPath, currentTargetProjectPath) ||
+                other.currentTargetProjectPath == currentTargetProjectPath) &&
             (identical(other.windowsWidth, windowsWidth) ||
                 other.windowsWidth == windowsWidth) &&
             (identical(other.windowsHeight, windowsHeight) ||
@@ -284,6 +307,7 @@ class _$SettingImpl implements _Setting {
       openAppCount,
       didRateApp,
       language,
+      currentTargetProjectPath,
       windowsWidth,
       windowsHeight,
       themeColor);
@@ -304,6 +328,7 @@ abstract class _Setting implements Settings {
       required final int openAppCount,
       required final bool didRateApp,
       required final String language,
+      required final String currentTargetProjectPath,
       required final double windowsWidth,
       required final double windowsHeight,
       required final int themeColor}) = _$SettingImpl;
@@ -327,6 +352,10 @@ abstract class _Setting implements Settings {
   /// to [Locale('en', 'US')] to change value of the app
   @override
   String get language;
+
+  /// Current working project
+  @override
+  String get currentTargetProjectPath;
 
   /// Hold windows size value
   @override

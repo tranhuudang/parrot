@@ -31,11 +31,12 @@ class Properties {
     await prefs.setDouble(
         SharedPreferencesKey.heightOfWindowSize, newSetting.windowsHeight);
     await prefs.setString(SharedPreferencesKey.themeMode, newSetting.themeMode);
+    await prefs.setString(SharedPreferencesKey.currentTargetProjectPath,
+        newSetting.currentTargetProjectPath);
     await prefs.setInt(SharedPreferencesKey.themeColor, newSetting.themeColor);
     await prefs.setBool(SharedPreferencesKey.enableAdaptiveTheme,
         newSetting.enableAdaptiveTheme);
-    await prefs.setBool(
-        SharedPreferencesKey.didRateApp, newSetting.didRateApp);
+    await prefs.setBool(SharedPreferencesKey.didRateApp, newSetting.didRateApp);
     DebugLog.info('Setting saved');
   }
 
@@ -46,6 +47,9 @@ class Properties {
           settings.openAppCount,
       language: await prefs.getString(SharedPreferencesKey.language) ??
           settings.language,
+      currentTargetProjectPath: await prefs
+              .getString(SharedPreferencesKey.currentTargetProjectPath) ??
+          settings.currentTargetProjectPath,
       windowsWidth:
           await prefs.getDouble(SharedPreferencesKey.widthOfWindowSize) ??
               settings.windowsWidth,
@@ -59,8 +63,7 @@ class Properties {
       enableAdaptiveTheme:
           await prefs.getBool(SharedPreferencesKey.enableAdaptiveTheme) ??
               settings.enableAdaptiveTheme,
-      didRateApp:
-      await prefs.getBool(SharedPreferencesKey.didRateApp) ??
+      didRateApp: await prefs.getBool(SharedPreferencesKey.didRateApp) ??
           settings.didRateApp,
     );
     return savedSetting;
