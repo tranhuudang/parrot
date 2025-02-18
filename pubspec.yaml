@@ -94,6 +94,6 @@ msix_config:
   publisher: CN=DA7D2C99-987C-4B69-8953-17157F6E0E1A
   msix_version: 2025.2.18.0
   trim_logo: false
-  logo_path: C:\Users\tranh\StudioProjects\flutter_version_manager\assets\images\app_icon.png
+  logo_path: C:\Users\tranh\StudioProjects\parrot\assets\images\app_icon.png
   store: true
   language: en-us, vi-vi, zh-cn
