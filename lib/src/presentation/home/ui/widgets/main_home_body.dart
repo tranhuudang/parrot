@@ -115,7 +115,8 @@ class MainHomeBody extends ConsumerWidget {
                         enabled: false,
                         controller: notifier.projectPathController,
                         readOnly: true,
-                        style: TextStyle(color: context.theme.colorScheme.primary),
+                        style:
+                            TextStyle(color: context.theme.colorScheme.primary),
                         decoration: const InputDecoration(
                           hintText: 'Selected Flutter Project Path',
                           border: InputBorder.none,
@@ -135,7 +136,10 @@ class MainHomeBody extends ConsumerWidget {
                       children: [
                         Row(
                           children: [
-                            const Icon(FluentIcons.circle_16_regular, size: 14,),
+                            const Icon(
+                              FluentIcons.circle_16_regular,
+                              size: 14,
+                            ),
                             16.width,
                             const Text("Select new Flutter version to switch:"),
                             8.width,
@@ -160,7 +164,8 @@ class MainHomeBody extends ConsumerWidget {
                             IconButton(
                               onPressed: () =>
                                   notifier.fetchDownloadedFlutterVersions(),
-                              icon: const Icon(FluentIcons.arrow_sync_16_regular),
+                              icon:
+                                  const Icon(FluentIcons.arrow_sync_16_regular),
                             ),
                             const Spacer(),
                             8.width,
@@ -181,23 +186,35 @@ class MainHomeBody extends ConsumerWidget {
                         8.height,
                         Row(
                           children: [
-                            const Icon(FluentIcons.circle_16_regular, size: 14,),
+                            const Icon(
+                              FluentIcons.circle_16_regular,
+                              size: 14,
+                            ),
                             16.width,
-                            Text(state.projectPath.substring(state.projectPath.lastIndexOf('\\')+1)),
+                            Text(state.projectPath.substring(
+                                state.projectPath.lastIndexOf('\\') + 1)),
                             16.width,
                             const PlatformSelector(),
                             16.width,
+                            if (state.isGettingAvailableDevices) ...[
+                              const SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: CircularProgressIndicator()),
+                              16.width,
+                            ],
                             Opacity(
-                              opacity: !state.isRunning ? 1: .5,
+                              opacity: !state.isRunning ? 1 : .5,
                               child: InkWell(
                                 child: Container(
-                                  padding: const EdgeInsets.only(left: 7, right: 9, bottom: 8, top: 8),
+                                  padding: const EdgeInsets.only(
+                                      left: 7, right: 9, bottom: 8, top: 8),
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    color: const Color(0xFF66BB6A)
-                                  ),
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: const Color(0xFF66BB6A)),
                                   child: const Icon(
-                                    FluentIcons.play_16_regular, size: 16,
+                                    FluentIcons.play_16_regular,
+                                    size: 16,
                                   ),
                                 ),
                                 onTap: () {
@@ -207,16 +224,17 @@ class MainHomeBody extends ConsumerWidget {
                             ),
                             8.width,
                             Opacity(
-                              opacity: state.isRunning ? 1: .5,
+                              opacity: state.isRunning ? 1 : .5,
                               child: InkWell(
                                 child: Container(
-                                  padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 8),
+                                  padding: const EdgeInsets.only(
+                                      left: 8, right: 8, bottom: 8, top: 8),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5),
-                                      color: const Color(0xFFF50057)
-                                  ),
+                                      color: const Color(0xFFF50057)),
                                   child: const Icon(
-                                    FluentIcons.stop_16_regular, size: 16,
+                                    FluentIcons.stop_16_regular,
+                                    size: 16,
                                   ),
                                 ),
                                 onTap: () {
@@ -225,30 +243,37 @@ class MainHomeBody extends ConsumerWidget {
                               ),
                             ),
                             8.width,
-                              Opacity(
-                                opacity: state.isRunning ? 1: .5,
-                                child: InkWell(
-                                  child: Container(
-                                    padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 8),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        color: Colors.orange
-                                    ),
-                                    child: const Icon(
-                                      FluentIcons.arrow_sync_24_regular, size: 16,
-                                    ),
+                            Opacity(
+                              opacity: state.isRunning ? 1 : .5,
+                              child: InkWell(
+                                child: Container(
+                                  padding: const EdgeInsets.only(
+                                      left: 8, right: 8, bottom: 8, top: 8),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: Colors.orange),
+                                  child: const Icon(
+                                    FluentIcons.arrow_sync_24_regular,
+                                    size: 16,
                                   ),
+                                ),
                                 onTap: () {
                                   notifier.hotReloadFlutterProject();
                                 },
-                                                            ),
                               ),
+                            ),
+                            8.width,
+                            IconButton(
+                              onPressed: () =>
+                                  notifier.refreshAvailableDevices(),
+                              icon:
+                                  const Icon(FluentIcons.arrow_sync_16_regular),
+                            ),
                           ],
                         ),
                       ],
                     ),
                   )
-
                 ],
                 8.height,
                 Expanded(

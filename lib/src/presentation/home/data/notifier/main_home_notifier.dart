@@ -191,14 +191,19 @@ class MainHomeNotifier extends StateNotifier<MainHomeState> {
     String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
     if (selectedDirectory != null) {
       projectPathController.text = selectedDirectory;
-      state = state.copyWith(projectPath: selectedDirectory);
+      state = state.copyWith(projectPath: selectedDirectory, isGettingAvailableDevices: true);
       List<String> availablePlatforms = await fetchFlutterPlatforms();
-      state = state.copyWith(availablePlatforms: availablePlatforms);
+      state = state.copyWith(availablePlatforms: availablePlatforms, isGettingAvailableDevices: false);
     }
   }
 
+  Future<void> refreshAvailableDevices() async {
+    state = state.copyWith(isGettingAvailableDevices: true);
+    List<String> availablePlatforms = await fetchFlutterPlatforms();
+    state = state.copyWith(availablePlatforms: availablePlatforms, isGettingAvailableDevices: false);
+  }
+
   void selectPlatform(String platform) {
-    print('try to set pleftom');
     state = state.copyWith(selectedPlatform: platform);
   }
 
@@ -206,13 +211,12 @@ class MainHomeNotifier extends StateNotifier<MainHomeState> {
 
   Future<void> runFlutterProject() async {
     if (state.projectPath.isEmpty) return;
-    print(state.projectPath);
     state = state.copyWith(isRunning: true);
     try {
       flutterProcess = await Process.start(
           'fvm', ['flutter', 'run', '-d', state.selectedPlatform],
           workingDirectory: state.projectPath);
-      print(state.projectPath);
+      DebugLog.info('Run project in :${state.projectPath}');
       flutterProcess!.stdout.transform(utf8.decoder).listen((data) {
         List<Widget> newList = List.from(state.commandOutput);
         newList.insert(0, Text(data));
@@ -256,8 +260,9 @@ class MainHomeNotifier extends StateNotifier<MainHomeState> {
   Future<List<String>> fetchFlutterPlatforms() async {
     try {
       // Run the flutter devices command
-      print('getting available devices');
-      ProcessResult result = await Process.run('fvm', ['flutter', 'devices']);
+      DebugLog.info('Getting available devices...');
+      ProcessResult result = await Process.run('fvm', ['flutter', 'devices'],
+          workingDirectory: state.projectPath);
       if (result.exitCode == 0) {
         String output = result.stdout.toString();
         List<String> platforms = [];
@@ -277,12 +282,14 @@ class MainHomeNotifier extends StateNotifier<MainHomeState> {
             platforms.add(platformName);
           }
         }
+        DebugLog.info('Available devices: $platforms');
 
         return platforms;
       }
     } catch (e) {
-      DebugLog.error("Error fetching Flutter platforms: $e");
+      DebugLog.error("Error fetching available devices: $e");
     }
+    DebugLog.info('Available devices is EMPTY');
     return [];
   }
 }

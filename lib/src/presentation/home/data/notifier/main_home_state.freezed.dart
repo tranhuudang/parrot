@@ -29,6 +29,7 @@ mixin _$MainHomeState {
   bool get isDownloading => throw _privateConstructorUsedError;
   bool get isFetchingDownloaded => throw _privateConstructorUsedError;
   bool get isSwitching => throw _privateConstructorUsedError;
+  bool get isGettingAvailableDevices => throw _privateConstructorUsedError;
   String get projectPath => throw _privateConstructorUsedError;
   String get selectedPlatform => throw _privateConstructorUsedError;
   List<String> get availablePlatforms => throw _privateConstructorUsedError;
@@ -61,6 +62,7 @@ abstract class $MainHomeStateCopyWith<$Res> {
       bool isDownloading,
       bool isFetchingDownloaded,
       bool isSwitching,
+      bool isGettingAvailableDevices,
       String projectPath,
       String selectedPlatform,
       List<String> availablePlatforms,
@@ -95,6 +97,7 @@ class _$MainHomeStateCopyWithImpl<$Res, $Val extends MainHomeState>
     Object? isDownloading = null,
     Object? isFetchingDownloaded = null,
     Object? isSwitching = null,
+    Object? isGettingAvailableDevices = null,
     Object? projectPath = null,
     Object? selectedPlatform = null,
     Object? availablePlatforms = null,
@@ -150,6 +153,10 @@ class _$MainHomeStateCopyWithImpl<$Res, $Val extends MainHomeState>
           ? _value.isSwitching
           : isSwitching // ignore: cast_nullable_to_non_nullable
               as bool,
+      isGettingAvailableDevices: null == isGettingAvailableDevices
+          ? _value.isGettingAvailableDevices
+          : isGettingAvailableDevices // ignore: cast_nullable_to_non_nullable
+              as bool,
       projectPath: null == projectPath
           ? _value.projectPath
           : projectPath // ignore: cast_nullable_to_non_nullable
@@ -195,6 +202,7 @@ abstract class _$$MainHomeStateImplCopyWith<$Res>
       bool isDownloading,
       bool isFetchingDownloaded,
       bool isSwitching,
+      bool isGettingAvailableDevices,
       String projectPath,
       String selectedPlatform,
       List<String> availablePlatforms,
@@ -227,6 +235,7 @@ class __$$MainHomeStateImplCopyWithImpl<$Res>
     Object? isDownloading = null,
     Object? isFetchingDownloaded = null,
     Object? isSwitching = null,
+    Object? isGettingAvailableDevices = null,
     Object? projectPath = null,
     Object? selectedPlatform = null,
     Object? availablePlatforms = null,
@@ -282,6 +291,10 @@ class __$$MainHomeStateImplCopyWithImpl<$Res>
           ? _value.isSwitching
           : isSwitching // ignore: cast_nullable_to_non_nullable
               as bool,
+      isGettingAvailableDevices: null == isGettingAvailableDevices
+          ? _value.isGettingAvailableDevices
+          : isGettingAvailableDevices // ignore: cast_nullable_to_non_nullable
+              as bool,
       projectPath: null == projectPath
           ? _value.projectPath
           : projectPath // ignore: cast_nullable_to_non_nullable
@@ -322,6 +335,7 @@ class _$MainHomeStateImpl implements _MainHomeState {
       required this.isDownloading,
       required this.isFetchingDownloaded,
       required this.isSwitching,
+      required this.isGettingAvailableDevices,
       required this.projectPath,
       required this.selectedPlatform,
       required final List<String> availablePlatforms,
@@ -377,6 +391,8 @@ class _$MainHomeStateImpl implements _MainHomeState {
   @override
   final bool isSwitching;
   @override
+  final bool isGettingAvailableDevices;
+  @override
   final String projectPath;
   @override
   final String selectedPlatform;
@@ -396,7 +412,7 @@ class _$MainHomeStateImpl implements _MainHomeState {
 
   @override
   String toString() {
-    return 'MainHomeState(fvmVersion: $fvmVersion, availableVersions: $availableVersions, selectedOnlineVersion: $selectedOnlineVersion, downloadedFlutterVersions: $downloadedFlutterVersions, selectedVersion: $selectedVersion, commandOutput: $commandOutput, isCheckingFvm: $isCheckingFvm, isInstallingFvm: $isInstallingFvm, isFetchingVersions: $isFetchingVersions, isDownloading: $isDownloading, isFetchingDownloaded: $isFetchingDownloaded, isSwitching: $isSwitching, projectPath: $projectPath, selectedPlatform: $selectedPlatform, availablePlatforms: $availablePlatforms, isRunning: $isRunning, isHotReloading: $isHotReloading)';
+    return 'MainHomeState(fvmVersion: $fvmVersion, availableVersions: $availableVersions, selectedOnlineVersion: $selectedOnlineVersion, downloadedFlutterVersions: $downloadedFlutterVersions, selectedVersion: $selectedVersion, commandOutput: $commandOutput, isCheckingFvm: $isCheckingFvm, isInstallingFvm: $isInstallingFvm, isFetchingVersions: $isFetchingVersions, isDownloading: $isDownloading, isFetchingDownloaded: $isFetchingDownloaded, isSwitching: $isSwitching, isGettingAvailableDevices: $isGettingAvailableDevices, projectPath: $projectPath, selectedPlatform: $selectedPlatform, availablePlatforms: $availablePlatforms, isRunning: $isRunning, isHotReloading: $isHotReloading)';
   }
 
   @override
@@ -428,6 +444,9 @@ class _$MainHomeStateImpl implements _MainHomeState {
                 other.isFetchingDownloaded == isFetchingDownloaded) &&
             (identical(other.isSwitching, isSwitching) ||
                 other.isSwitching == isSwitching) &&
+            (identical(other.isGettingAvailableDevices,
+                    isGettingAvailableDevices) ||
+                other.isGettingAvailableDevices == isGettingAvailableDevices) &&
             (identical(other.projectPath, projectPath) ||
                 other.projectPath == projectPath) &&
             (identical(other.selectedPlatform, selectedPlatform) ||
@@ -455,6 +474,7 @@ class _$MainHomeStateImpl implements _MainHomeState {
       isDownloading,
       isFetchingDownloaded,
       isSwitching,
+      isGettingAvailableDevices,
       projectPath,
       selectedPlatform,
       const DeepCollectionEquality().hash(_availablePlatforms),
@@ -484,6 +504,7 @@ abstract class _MainHomeState implements MainHomeState {
       required final bool isDownloading,
       required final bool isFetchingDownloaded,
       required final bool isSwitching,
+      required final bool isGettingAvailableDevices,
       required final String projectPath,
       required final String selectedPlatform,
       required final List<String> availablePlatforms,
@@ -514,6 +535,8 @@ abstract class _MainHomeState implements MainHomeState {
   bool get isFetchingDownloaded;
   @override
   bool get isSwitching;
+  @override
+  bool get isGettingAvailableDevices;
   @override
   String get projectPath;
   @override

@@ -1,92 +1,12 @@
 import 'dart:async';
-import 'dart:io';
-import 'package:file_picker/file_picker.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_version_manager/src/presentation/donation/donation_screen.dart';
 import 'package:flutter_version_manager/src/presentation/presentation.dart';
 import 'package:flutter_version_manager/src/core/core.dart';
-import 'package:flutter_version_manager/src/presentation/shared/ui/widgets/divider_with_text.dart';
-import 'package:path/path.dart' as path;
-import 'package:path_provider/path_provider.dart';
 
-class SettingsView extends StatefulWidget {
+class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
-
-  @override
-  State<SettingsView> createState() => _SettingsViewState();
-}
-
-class _SettingsViewState extends State<SettingsView> {
-  Future<void> _restoreBackupFiles() async {
-    try {
-      FilePickerResult? result =
-          await FilePicker.platform.pickFiles(allowMultiple: true);
-
-      if (result != null) {
-        List<File> files = result.paths.map((path) => File(path!)).toList();
-
-        // Copy the selected files to the application support directory
-        Directory appSupportDir = await getApplicationSupportDirectory();
-        for (File file in files.take(2)) {
-          String newFilePath =
-              path.join(appSupportDir.path, file.uri.pathSegments.last);
-          if (file.uri.pathSegments.last ==
-                  LocalDirectory.sharedPreferencesFileName) {
-            await file.copy(newFilePath);
-            // Inform the user
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                  content: Text(
-                      'Backup files is copied to Application Support Directory.'
-                          .i18n)),
-            );
-          } else {
-            // Inform the user
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Backup files is not valid.'.i18n)),
-            );
-          }
-        }
-      }
-    } catch (e) {
-      DebugLog.error("${"Error picking files:".i18n} $e");
-    }
-  }
-
-  Future<void> _createBackupFiles() async {
-    Directory appSupportDir = await getApplicationSupportDirectory();
-    final List<String> targetFilePaths = [
-      path.join(appSupportDir.path, LocalDirectory.sharedPreferencesFileName),
-    ];
-    try {
-      // Pick a directory
-      String? directoryPath = await FilePicker.platform.getDirectoryPath();
-
-      if (directoryPath != null) {
-        Directory selectedDirectory = Directory(directoryPath);
-
-        // Copy the specified files to the picked directory
-        for (String itemPath in targetFilePaths) {
-          File file = File(itemPath);
-          String newFilePath =
-              path.join(selectedDirectory.path, file.uri.pathSegments.last);
-          await file.copy(newFilePath);
-        }
-
-        // Inform the user
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-              content:
-                  Text('Backup files are saved to selected directory'.i18n)),
-        );
-      } else {
-        // User canceled the directory picker
-      }
-    } catch (e) {
-      DebugLog.error("${"Error picking directory or copying files:".i18n} $e");
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
