@@ -21,7 +21,7 @@ class MainHomeBody extends ConsumerWidget {
         4.height,
         Row(
           children: [
-            const Text('FVM version:'),
+            const Text('FVM CLI version:'),
             8.width,
             state.fvmVersion.isEmpty
                 ? FilledButton(
