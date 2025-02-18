@@ -257,17 +257,35 @@ class MainHomeNotifier extends StateNotifier<MainHomeState> {
     }
   }
 
+  // Future<void> stopFlutterProject() async {
+  //   if (flutterProcess == null) return;
+  //
+  //   state = state.copyWith(isRunning: false);
+  //   try {
+  //     flutterProcess!.kill();
+  //     flutterProcess = null;
+  //   } catch (e) {
+  //     DebugLog.error("Error stopping Flutter project: $e");
+  //   }
+  // }
+
   Future<void> stopFlutterProject() async {
     if (flutterProcess == null) return;
 
-    state = state.copyWith(isRunning: false);
     try {
-      flutterProcess!.kill();
+      // Try to gracefully exit Flutter process
+      flutterProcess!.stdin.writeln('q');
+      await Future.delayed(const Duration(seconds: 2)); // Give time for graceful shutdown
+      if (flutterProcess != null && flutterProcess!.kill()) {
+        DebugLog.info("Flutter process killed successfully.");
+      }
       flutterProcess = null;
+      state = state.copyWith(isRunning: false);
     } catch (e) {
       DebugLog.error("Error stopping Flutter project: $e");
     }
   }
+
 
   Future<void> hotReloadFlutterProject() async {
     if (flutterProcess == null) return;

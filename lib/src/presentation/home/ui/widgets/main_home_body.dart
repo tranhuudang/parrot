@@ -203,64 +203,40 @@ class MainHomeBody extends ConsumerWidget {
                                   child: CircularProgressIndicator()),
                               16.width,
                             ],
-                            Opacity(
-                              opacity: !state.isRunning ? 1 : .5,
-                              child: InkWell(
-                                child: Container(
-                                  padding: const EdgeInsets.only(
-                                      left: 7, right: 9, bottom: 8, top: 8),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: const Color(0xFF66BB6A)),
-                                  child: const Icon(
-                                    FluentIcons.play_16_regular,
-                                    size: 16,
-                                  ),
-                                ),
-                                onTap: () {
-                                  notifier.runFlutterProject();
-                                },
+                            ControlProjectButton(
+                              backgroundColor: const Color(0xFF66BB6A),
+                              enabled: !state.isRunning,
+                              icon: const Icon(
+                                FluentIcons.play_16_regular,
+                                size: 16,
                               ),
+                              onPressed: () {
+                                notifier.runFlutterProject();
+                              },
                             ),
                             8.width,
-                            Opacity(
-                              opacity: state.isRunning ? 1 : .5,
-                              child: InkWell(
-                                child: Container(
-                                  padding: const EdgeInsets.only(
-                                      left: 8, right: 8, bottom: 8, top: 8),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: const Color(0xFFF50057)),
-                                  child: const Icon(
-                                    FluentIcons.stop_16_regular,
-                                    size: 16,
-                                  ),
-                                ),
-                                onTap: () {
-                                  notifier.stopFlutterProject();
-                                },
+                            ControlProjectButton(
+                              backgroundColor: const Color(0xFFF50057),
+                              enabled: state.isRunning,
+                              icon: const Icon(
+                                FluentIcons.stop_16_regular,
+                                size: 16,
                               ),
+                              onPressed: () {
+                                notifier.stopFlutterProject();
+                              },
                             ),
                             8.width,
-                            Opacity(
-                              opacity: state.isRunning ? 1 : .5,
-                              child: InkWell(
-                                child: Container(
-                                  padding: const EdgeInsets.only(
-                                      left: 8, right: 8, bottom: 8, top: 8),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Colors.orange),
-                                  child: const Icon(
-                                    FluentIcons.arrow_sync_24_regular,
-                                    size: 16,
-                                  ),
-                                ),
-                                onTap: () {
-                                  notifier.hotReloadFlutterProject();
-                                },
+                            ControlProjectButton(
+                              backgroundColor: Colors.orange,
+                              enabled: state.isRunning,
+                              icon: const Icon(
+                                FluentIcons.arrow_sync_24_regular,
+                                size: 16,
                               ),
+                              onPressed: () {
+                                notifier.hotReloadFlutterProject();
+                              },
                             ),
                             8.width,
                             IconButton(
@@ -292,6 +268,43 @@ class MainHomeBody extends ConsumerWidget {
           ),
         )),
       ],
+    );
+  }
+}
+
+class ControlProjectButton extends StatelessWidget {
+  const ControlProjectButton({
+    super.key,
+    required this.enabled,
+    this.onPressed,
+    required this.icon,
+    this.backgroundColor,
+  });
+
+  final bool enabled;
+  final VoidCallback? onPressed;
+  final Widget icon;
+  final Color? backgroundColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return IgnorePointer(
+      ignoring: !enabled,
+      child: Opacity(
+        opacity: enabled ? 1 : .3,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(10),
+          onTap: onPressed ?? () {},
+          child: Container(
+            padding:
+                const EdgeInsets.only(left: 7, right: 9, bottom: 8, top: 8),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: backgroundColor ?? const Color(0xFF66BB6A)),
+            child: icon,
+          ),
+        ),
+      ),
     );
   }
 }

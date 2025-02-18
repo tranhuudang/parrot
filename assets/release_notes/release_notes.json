@@ -1,7 +1,15 @@
 [
-      {
+  {
+    "version": "3",
+    "date": "18-02-2025",
+    "changesNote": [
+      "Improve user experience",
+      "Fix bugs that prevent app from stopping a running Flutter project"
+    ]
+  },
+  {
     "version": "1",
-    "date": "24-02-2025",
+    "date": "17-02-2025",
     "changesNote": [
       "Release first version"
     ]

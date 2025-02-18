@@ -92,7 +92,7 @@ msix_config:
   publisher_display_name: DAK Solutions
   identity_name: 24555Zeroboy.FlutterVersionManager
   publisher: CN=DA7D2C99-987C-4B69-8953-17157F6E0E1A
-  msix_version: 2025.2.17.0
+  msix_version: 2025.2.18.0
   trim_logo: false
   logo_path: C:\Users\tranh\StudioProjects\flutter_version_manager\assets\images\app_icon.png
   store: true
