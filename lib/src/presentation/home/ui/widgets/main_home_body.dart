@@ -87,9 +87,10 @@ class MainHomeBody extends ConsumerWidget {
             ),
           ),
         ),
-        ElevatedButton(
+        ElevatedButton.icon(
+          icon: const Icon(FluentIcons.folder_16_regular),
           onPressed: () => notifier.selectProjectPath(),
-          child: Text('Select Project Path'.i18n),
+          label: Text('Select Project Path'.i18n),
         ),
       ],
     );
@@ -192,12 +193,13 @@ class MainHomeBody extends ConsumerWidget {
         ),
         const Spacer(),
         8.width,
-        ElevatedButton(
+        ElevatedButton.icon(
+          icon: const Icon(FluentIcons.arrow_shuffle_16_regular),
           onPressed: state.isSwitching
               ? null
               : () => notifier
                   .switchFlutterVersion(notifier.projectPathController.text),
-          child: state.isSwitching
+          label: state.isSwitching
               ? const SizedBox(
                   height: 20, width: 20, child: CircularProgressIndicator())
               : Text("Switch".i18n),
@@ -236,11 +238,12 @@ class MainHomeBody extends ConsumerWidget {
         ),
         const Spacer(),
         8.width,
-        ElevatedButton(
+        ElevatedButton.icon(
+          icon: const Icon(FluentIcons.arrow_download_16_regular),
           onPressed: state.isDownloading
               ? null
               : () => notifier.downloadFlutterVersion(),
-          child: state.isDownloading
+          label: state.isDownloading
               ? const SizedBox(
                   height: 20, width: 20, child: CircularProgressIndicator())
               : Text("Download".i18n),
@@ -252,6 +255,7 @@ class MainHomeBody extends ConsumerWidget {
   Column buildFVMCLIVersion(
       MainHomeState state, BuildContext context, MainHomeNotifier notifier) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
@@ -284,12 +288,13 @@ class MainHomeBody extends ConsumerWidget {
           ],
         ),
         if (state.fvmVersion.isEmpty) ...[
-          8.height,
           Text(
             '*You must install FVM CLI to use this app.'.i18n,
             style:
                 context.theme.textTheme.labelSmall?.copyWith(color: Colors.red),
           ),
+          8.height,
+
         ],
       ],
     );

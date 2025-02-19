@@ -10,7 +10,7 @@ class RoundedDottedDropdownButton<T> extends StatelessWidget {
         required this.value,
         required this.onChanged,
         required this.items,
-        required this.hint});
+         this.hint});
 
   final T? value;
   final Function(T?) onChanged;

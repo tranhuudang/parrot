@@ -207,10 +207,10 @@ extension Localization on Object {
     'or': {'en_us': 'or', 'vi_vi': 'hoặc', 'zh_cn': '或'},
     'Donate': {'en_us': 'Donate', 'vi_vi': 'Quyên góp', 'zh_cn': '捐款'},
 
-    "You must install FVM CLI to use this app.": {
-      "en_us": "You must install FVM CLI to use this app.",
-      "vi_vi": "Bạn phải cài đặt FVM CLI để sử dụng ứng dụng này.",
-      "zh_cn": "您必须安装 FVM CLI 才能使用此应用。"
+    "*You must install FVM CLI to use this app.": {
+      "en_us": "*You must install FVM CLI to use this app.",
+      "vi_vi": "*Bạn phải cài đặt FVM CLI để sử dụng ứng dụng này.",
+      "zh_cn": "*您必须安装 FVM CLI 才能使用此应用。"
     },
     "Download": {"en_us": "Download", "vi_vi": "Tải xuống", "zh_cn": "下载"},
     "Select Flutter Version": {

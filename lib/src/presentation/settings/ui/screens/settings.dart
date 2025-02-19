@@ -100,28 +100,24 @@ class _LanguageSwitcherState extends State<LanguageSwitcher> {
         stream: languageStreamController.stream,
         initialData: Properties.instance.settings.language,
         builder: (context, languageState) {
-          return DropdownButtonHideUnderline(
-            child: DropdownButton<String>(
-              focusColor: context.theme.scaffoldBackgroundColor,
-              borderRadius: BorderRadius.circular(16),
-              value: languageState.data,
-              onChanged: (String? language) {
-                if (language != null) {
-                  languageStreamController.add(language);
-                  settingBloc.add(ChangeLanguageEvent(language: language));
-                }
-              },
-              items: supportedLanguages
-                  .map<DropdownMenuItem<String>>((String language) {
-                return DropdownMenuItem<String>(
-                  value: language,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Text(language),
-                  ),
-                );
-              }).toList(),
-            ),
+          return RoundedDottedDropdownButton<String>(
+            value: languageState.data,
+            onChanged: (String? language) {
+              if (language != null) {
+                languageStreamController.add(language);
+                settingBloc.add(ChangeLanguageEvent(language: language));
+              }
+            },
+            items: supportedLanguages
+                .map<DropdownMenuItem<String>>((String language) {
+              return DropdownMenuItem<String>(
+                value: language,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Text(language),
+                ),
+              );
+            }).toList(),
           );
         });
   }
