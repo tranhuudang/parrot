@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../presentation.dart';
 import '../../data/notifier/main_home_notifier.dart';
 
 class PlatformSelector extends ConsumerWidget {
@@ -15,7 +15,7 @@ class PlatformSelector extends ConsumerWidget {
     final selectedPlatform = state.availablePlatforms.contains(state.selectedPlatform)
         ? state.selectedPlatform
         : null;
-    return DropdownButton<String>(
+    return RoundedDottedDropdownButton<String>(
       hint: const Text('Select Platform'),
       value: selectedPlatform, // Set the currently selected value
       items: state.availablePlatforms.map((platform) {
@@ -24,7 +24,7 @@ class PlatformSelector extends ConsumerWidget {
           child: Text(platform),
         );
       }).toList(),
-      onChanged: (String? selectedPlatform) {
+      onChanged: (selectedPlatform) {
         notifier.selectPlatform(selectedPlatform!);
       },
     );

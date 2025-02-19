@@ -43,93 +43,7 @@ class _DesktopHomeScreenState extends State<DesktopHomeScreen> {
     return Scaffold(
       body: Column(
         children: [
-          Row(children: [
-            Expanded(
-              child: Container(
-                height: 136,
-                color: context.theme.colorScheme.surfaceContainerLow,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Stack(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Opacity(
-                            opacity: .01,
-                            child: Align(
-                                alignment: Alignment.centerRight,
-                                child: Image.asset(
-                                  'assets/flutter.png',
-                                  height: 30,
-                                  width: 30,
-                                )),
-                          ),
-                          Opacity(
-                            opacity: .05,
-                            child: Align(
-                                alignment: Alignment.centerRight,
-                                child: Image.asset(
-                                  'assets/flutter.png',
-                                  height: 50,
-                                  width: 50,
-                                )),
-                          ),
-                          Opacity(
-                            opacity: .1,
-                            child: Align(
-                                alignment: Alignment.centerRight,
-                                child: Image.asset(
-                                  'assets/flutter.png',
-                                  height: 80,
-                                  width: 80,
-                                )),
-                          ),
-                          Opacity(
-                            opacity: .2,
-                            child: Align(
-                                alignment: Alignment.centerRight,
-                                child: Image.asset('assets/flutter.png')),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          TextButton(
-                            child: Text('${DateTime.now().year}.$appVersion'),
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const ReleaseNotesView()));
-                            },
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  DefaultSettings.appFullName,
-                                  style: context.theme.textTheme.headlineSmall,
-                                ),
-                                const SizedBox(width: 100, child: Divider()),
-                                Text(
-                                    'A user-friendly, robust, and adaptable tool for managing multiple Flutter SDK versions.'
-                                        .i18n)
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ]),
+          buildAppHeader(context),
           const Divider(
             height: 0,
           ),
@@ -142,5 +56,95 @@ class _DesktopHomeScreenState extends State<DesktopHomeScreen> {
         ],
       ),
     );
+  }
+
+  Row buildAppHeader(BuildContext context) {
+    return Row(children: [
+      Expanded(
+        child: Container(
+          height: 136,
+          color: context.theme.colorScheme.surfaceContainerLow,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Stack(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Opacity(
+                      opacity: .01,
+                      child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Image.asset(
+                            'assets/flutter.png',
+                            height: 30,
+                            width: 30,
+                          )),
+                    ),
+                    Opacity(
+                      opacity: .05,
+                      child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Image.asset(
+                            'assets/flutter.png',
+                            height: 50,
+                            width: 50,
+                          )),
+                    ),
+                    Opacity(
+                      opacity: .1,
+                      child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Image.asset(
+                            'assets/flutter.png',
+                            height: 80,
+                            width: 80,
+                          )),
+                    ),
+                    Opacity(
+                      opacity: .2,
+                      child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Image.asset('assets/flutter.png')),
+                    ),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextButton(
+                      child: Text('${DateTime.now().year}.$appVersion'),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const ReleaseNotesView()));
+                      },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            DefaultSettings.appFullName,
+                            style: context.theme.textTheme.headlineSmall,
+                          ),
+                          const SizedBox(width: 100, child: Divider()),
+                          Text(
+                              'A user-friendly, robust, and adaptable tool for managing multiple Flutter SDK versions.'
+                                  .i18n)
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    ]);
   }
 }
