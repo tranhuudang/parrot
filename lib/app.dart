@@ -80,7 +80,7 @@ class _AppState extends State<App> {
           themeMode: state.params.themeMode,
           theme: lightTheme(colorScheme: lightColorScheme),
           darkTheme: darkTheme(colorScheme: darkColorScheme),
-          title: DefaultSettings.appFullName,
+          title: DefaultSettings.appTitleDescription,
           debugShowCheckedModeBanner: false,
           routerConfig: routerConfigDesktop,
         );

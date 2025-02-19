@@ -73,7 +73,7 @@ class MainHomeBody extends ConsumerWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const Text('Target Flutter Project:'),
+        Text('Target Flutter Project:'.i18n),
         8.width,
         Expanded(
           child: TextFormField(
@@ -81,15 +81,15 @@ class MainHomeBody extends ConsumerWidget {
             controller: notifier.projectPathController,
             readOnly: true,
             style: TextStyle(color: context.theme.colorScheme.primary),
-            decoration: const InputDecoration(
-              hintText: 'Selected Flutter Project Path',
+            decoration: InputDecoration(
+              hintText: 'Selected Flutter Project Path'.i18n,
               border: InputBorder.none,
             ),
           ),
         ),
         ElevatedButton(
           onPressed: () => notifier.selectProjectPath(),
-          child: const Text('Select Project Path'),
+          child: Text('Select Project Path'.i18n),
         ),
       ],
     );
@@ -167,12 +167,12 @@ class MainHomeBody extends ConsumerWidget {
           size: 14,
         ),
         16.width,
-        const Text("Select new Flutter version to switch:"),
+        Text("Select new Flutter version to switch:".i18n),
         8.width,
         RoundedDottedDropdownButton<String>(
           value:
               state.selectedVersion.isNotEmpty ? state.selectedVersion : null,
-          hint: const Text("Select Flutter Version"),
+          hint: Text("Select Flutter Version".i18n),
           items: state.downloadedFlutterVersions
               .map((version) => DropdownMenuItem(
                     value: version,
@@ -200,7 +200,7 @@ class MainHomeBody extends ConsumerWidget {
           child: state.isSwitching
               ? const SizedBox(
                   height: 20, width: 20, child: CircularProgressIndicator())
-              : const Text("Switch"),
+              : Text("Switch".i18n),
         ),
       ],
     );
@@ -210,13 +210,13 @@ class MainHomeBody extends ConsumerWidget {
       MainHomeState state, MainHomeNotifier notifier) {
     return Row(
       children: [
-        const Text('Available Flutter SDK releases: '),
+         Text("${'Available Flutter SDK releases:'.i18n} "),
         8.width,
         RoundedDottedDropdownButton<String>(
           value: state.selectedOnlineVersion.isNotEmpty
               ? state.selectedOnlineVersion
               : null,
-          hint: const Text("Select Flutter Version"),
+          hint: Text("Select Flutter Version".i18n),
           items: state.availableVersions
               .map((version) => DropdownMenuItem(
                     value: version,
@@ -243,7 +243,7 @@ class MainHomeBody extends ConsumerWidget {
           child: state.isDownloading
               ? const SizedBox(
                   height: 20, width: 20, child: CircularProgressIndicator())
-              : const Text("Download"),
+              : Text("Download".i18n),
         ),
       ],
     );
@@ -255,7 +255,7 @@ class MainHomeBody extends ConsumerWidget {
       children: [
         Row(
           children: [
-            const Text('FVM CLI version:'),
+            Text('FVM CLI version:'.i18n),
             8.width,
             state.fvmVersion.isEmpty
                 ? FilledButton(
@@ -265,7 +265,7 @@ class MainHomeBody extends ConsumerWidget {
                           MaterialPageRoute(
                               builder: (context) => const InstallFVMScreen()));
                     },
-                    child: const Text('Install FVM CLI'),
+                    child: Text('Install FVM CLI'.i18n),
                   )
                 : Text(state.fvmVersion),
             8.width,
@@ -279,14 +279,14 @@ class MainHomeBody extends ConsumerWidget {
               onPressed: () {
                 openUrl('https://github.com/leoafarias/fvm/releases');
               },
-              child: const Text("What's new?"),
+              child: Text("What's new?".i18n),
             ),
           ],
         ),
         if (state.fvmVersion.isEmpty) ...[
           8.height,
           Text(
-            '*You must install FVM CLI to use this app.',
+            '*You must install FVM CLI to use this app.'.i18n,
             style:
                 context.theme.textTheme.labelSmall?.copyWith(color: Colors.red),
           ),

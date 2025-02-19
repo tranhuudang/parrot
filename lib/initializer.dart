@@ -34,7 +34,7 @@ class _Initializer {
     WindowManager.instance.setSize(savedWindowsSize);
     WindowManager.instance.setMinimumSize(DefaultSettings.minWindowsSize);
     WindowManager.instance.setMaximumSize(DefaultSettings.maxWindowsSize);
-    WindowManager.instance.setTitle(DefaultSettings.appFullName);
+    WindowManager.instance.setTitle(DefaultSettings.appTitleDescription);
     WindowManager.instance.setTitleBarStyle(TitleBarStyle.hidden);
   }
 
@@ -49,7 +49,7 @@ class _Initializer {
     WindowManager.instance.setSize(savedWindowsSize);
     WindowManager.instance.setMinimumSize(DefaultSettings.minWindowsSize);
     WindowManager.instance.setMaximumSize(DefaultSettings.maxWindowsSize);
-    WindowManager.instance.setTitle(DefaultSettings.appFullName);
+    WindowManager.instance.setTitle(DefaultSettings.appTitleDescription);
     // Future.delayed(const Duration(seconds: 10), () {
     //   OpenAIKeySelector.init();
     // });

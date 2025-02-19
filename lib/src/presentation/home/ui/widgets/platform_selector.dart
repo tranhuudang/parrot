@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_version_manager/src/core/core.dart';
 
 import '../../../presentation.dart';
 import '../../data/notifier/main_home_notifier.dart';
@@ -10,13 +11,13 @@ class PlatformSelector extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(mainHomeProvider);
     final notifier = ref.read(mainHomeProvider.notifier);
-    if (state.availablePlatforms.isEmpty) return const Text('No Devices Detected');
+    if (state.availablePlatforms.isEmpty) return Text('No Devices Detected'.i18n);
     // Check if the selectedPlatform is null or not in the availablePlatforms list
     final selectedPlatform = state.availablePlatforms.contains(state.selectedPlatform)
         ? state.selectedPlatform
         : null;
     return RoundedDottedDropdownButton<String>(
-      hint: const Text('Select Platform'),
+      hint: Text('Select Platform'.i18n),
       value: selectedPlatform, // Set the currently selected value
       items: state.availablePlatforms.map((platform) {
         return DropdownMenuItem<String>(

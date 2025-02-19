@@ -128,7 +128,7 @@ class _DesktopHomeScreenState extends State<DesktopHomeScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            DefaultSettings.appFullName,
+                            "${DefaultSettings.appShortName} | ${DefaultSettings.appTitleDescription.i18n}",
                             style: context.theme.textTheme.headlineSmall,
                           ),
                           const SizedBox(width: 100, child: Divider()),
