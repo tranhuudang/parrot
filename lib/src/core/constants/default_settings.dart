@@ -16,7 +16,7 @@ class DefaultSettings {
     themeMode: 'ThemeMode.system',
     openAppCount: 0,
     didRateApp: false,
-    themeColor: Colors.blue.value,
+    themeColor: Colors.orange.value,
     enableAdaptiveTheme: true,
     currentTargetProjectPath: '',
   );

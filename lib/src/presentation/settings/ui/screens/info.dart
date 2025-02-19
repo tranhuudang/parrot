@@ -41,7 +41,7 @@ class InfoView extends StatelessWidget {
             ),
             8.height,
             Text(
-              DefaultSettings.appTitleDescription,
+             "${DefaultSettings.appShortName} | ${DefaultSettings.appTitleDescription}",
               style: context.theme.textTheme.titleLarge?.copyWith(
                   color: context.theme.colorScheme.onSurface,
                   fontWeight: FontWeight.bold),
@@ -63,13 +63,16 @@ class InfoView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             _buildIconButton(
+                icon: const Icon(FontAwesomeIcons.linkedin, size: 20,),
+                url: 'https://www.linkedin.com/in/dang-tran-huu/'),
+            _buildIconButton(
                 icon: const Icon(
                   FontAwesomeIcons.github,
                   size: 20,
                 ),
                 url: 'https://github.com/tranhuudang'),
             _buildIconButton(
-                icon: const Icon(Icons.mail),
+                icon: const Icon(FluentIcons.mail_20_regular, size: 24,),
                 url: 'mailto:dt148f148@gmail.com'),
           ],
         ),

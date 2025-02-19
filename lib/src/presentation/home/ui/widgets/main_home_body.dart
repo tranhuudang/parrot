@@ -212,7 +212,7 @@ class MainHomeBody extends ConsumerWidget {
       MainHomeState state, MainHomeNotifier notifier) {
     return Row(
       children: [
-         Text("${'Available Flutter SDK releases:'.i18n} "),
+        Text("${'Available Flutter SDK releases:'.i18n} "),
         8.width,
         RoundedDottedDropdownButton<String>(
           value: state.selectedOnlineVersion.isNotEmpty
@@ -294,7 +294,6 @@ class MainHomeBody extends ConsumerWidget {
                 context.theme.textTheme.labelSmall?.copyWith(color: Colors.red),
           ),
           8.height,
-
         ],
       ],
     );

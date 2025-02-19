@@ -46,6 +46,7 @@ class _DesktopHomeScreenState extends State<DesktopHomeScreen> {
           buildAppHeader(context),
           const Divider(
             height: 0,
+            thickness: 1,
           ),
           // Control Section
           const Expanded(
@@ -63,7 +64,17 @@ class _DesktopHomeScreenState extends State<DesktopHomeScreen> {
       Expanded(
         child: Container(
           height: 136,
-          color: context.theme.colorScheme.surfaceContainerLow,
+          // decoration: BoxDecoration(
+          //   gradient: LinearGradient(
+          //     begin: Alignment.centerLeft,
+          //     end: Alignment.centerRight,
+          //     colors: [
+          //       Colors.black,
+          //       Colors.transparent,
+          //       Colors.transparent,
+          //     ],
+          //   ),
+          // ),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Stack(
